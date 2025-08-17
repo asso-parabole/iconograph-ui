@@ -4,7 +4,12 @@
     export let value;
 </script>
 
-<input type={type} name="{name}" bind:value={value} autocomplete="on" required />
+{#if type == "textarea"}
+    <textarea name="{name}" bind:value={value} ></textarea>
+{:else}
+    <input type={type} name="{name}" bind:value={value} autocomplete="on" required />
+{/if}
+
 
 <style>
 
@@ -23,7 +28,7 @@ textarea {
     max-width: calc(100% - 28px);
     min-height: 100px;
 }
-select {
+/*select {
     background-color: #f5f5fb;
     border: none;
     border-radius: 6px;
@@ -31,6 +36,6 @@ select {
     font-size: 14px;
     line-height: 14px;
     font-weight: 500;
-}
+}*/
 
 </style>

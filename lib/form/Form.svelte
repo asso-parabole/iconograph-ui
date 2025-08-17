@@ -1,5 +1,6 @@
 <script>
     import Button from "./Button.svelte";
+    import { addNotification } from "../notification/NotificationWrapper.svelte";
 
     export let inputs = [];
     export let button;
@@ -26,16 +27,19 @@
 			}
 		});
 
-        const data = await response.json();
+        waiting = false;
 
-        if (response.ok) {
-            //addNotification({'status': 'success', 'message': 'Request successfull'})
+        if (!response.ok && response.status == 404)
+            return addNotification({'status': 'failure', 'message': 'Erreur ' + response.status })
+
+        const data = await response.json();
+        if (!response.ok) {
+            addNotification({'status': 'failure', 'message': response.status + ': ' + data.message})
         }
         else {
-            //addNotification({'status': 'failure', 'message': response.status + ': ' + data.message})
+            addNotification({'status': 'success', 'message': 'Request successfull'})
         }
 
-        waiting = false;
     }
 </script>
 
@@ -51,9 +55,7 @@
         </div>
     {/each}
 
-    <div on:click|stopPropagation={() => handleSubmit()}>
-        <Button button={button} ></Button>
-    </div>
+    <Button button={button} clickEvent={handleSubmit} ></Button>
 
 </form>
 

@@ -1,9 +1,9 @@
 <script>
     export let button;
-    export let props;
+    export let clickEvent;
 </script>
 
-<button {...props} >
+<button on:click|stopPropagation={clickEvent} >
     {button.label}
 </button>
 
