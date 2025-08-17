@@ -74,7 +74,6 @@
     }
 
     nav > .bottom {
-        background-color: aqua;
         width: 100%
     }
     nav > .bottom > div {

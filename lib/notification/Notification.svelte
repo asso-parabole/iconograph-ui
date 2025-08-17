@@ -1,6 +1,6 @@
 <script>
-    import failureIcon from '$lib/iconograph-ui/assets/icons/icon-failure.svg?url';
-    import successIcon from '$lib/iconograph-ui/assets/icons/icon-success.svg?url';
+    import failureIcon from '../assets/icons/icon-failure.svg?url';
+    import successIcon from '../assets/icons/icon-success.svg?url';
     export let notification;
 
     let hidden = false;

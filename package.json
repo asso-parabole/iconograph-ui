@@ -1,9 +1,9 @@
 {
     "name": "iconograph-ui",
-    "version": "1.1.2",
+    "version": "1.1.5",
     "description": "A Svelte Kit components library",
-    "main": "index.js",
-    "svelte": "src/index.js",
+    "main": "./index.js",
+    "svelte": "./index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
@@ -15,6 +15,13 @@
     "author": "",
     "license": "ISC",
     "type": "commonjs",
+    "exports": {
+        ".": {
+            "import": "./index.js",
+            "require": "./index.js",
+            "svelte": "./index.js"
+        }
+    },
     "bugs": {
         "url": "https://github.com/asso-parabole/iconograph-ui/issues"
     },
