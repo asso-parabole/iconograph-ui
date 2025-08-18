@@ -14,5 +14,6 @@
     box-sizing: border-box;
     border: 1px solid var(--main-border-color);
     border-radius: 8px;
+    overflow: hidden;
 }
 </style>

@@ -33,11 +33,13 @@
             return addNotification({'status': 'failure', 'message': 'Erreur ' + response.status })
 
         const data = await response.json();
+        console.log(data);
+
         if (!response.ok) {
             addNotification({'status': 'failure', 'message': response.status + ': ' + data.message})
         }
         else {
-            addNotification({'status': 'success', 'message': 'Request successfull'})
+            addNotification({'status': 'success', 'message': data.message})
         }
 
     }
