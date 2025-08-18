@@ -2,14 +2,14 @@
     export let name;
     export let type;
     export let value;
+    export let required = false;
 </script>
 
 {#if type == "textarea"}
     <textarea name="{name}" bind:value={value} ></textarea>
 {:else}
-    <input type={type} name="{name}" bind:value={value} autocomplete="on" required />
+    <input type={type} name="{name}" bind:value={value} autocomplete="on" required={required} />
 {/if}
-
 
 <style>
 

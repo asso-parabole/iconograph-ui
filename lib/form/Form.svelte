@@ -1,5 +1,5 @@
 <script>
-    import Button from "./Button.svelte";
+    import FormButton from "./FormButton.svelte";
     import { addNotification } from "../notification/NotificationWrapper.svelte";
 
     export let inputs = [];
@@ -48,16 +48,17 @@
 <form>
 
     {#each inputs as input}
-        <div class="form-row">
-            <div>
-                <label for="{input.props.name}" class="mandatory">{input.props.label}</label>
-
-                <svelte:component this={input.component} {...input.props} bind:value={input.value} />
+        {#if !input.disabled }
+            <div class="form-row">
+                <div>
+                    <label for="{input.props.name}" class="mandatory">{input.props.label}</label>
+                    <svelte:component this={input.component} {...input.props} bind:value={input.value} />
+                </div>
             </div>
-        </div>
+        {/if}
     {/each}
 
-    <Button button={button} clickEvent={handleSubmit} ></Button>
+    <FormButton button={button} clickEvent={handleSubmit} ></FormButton>
 
 </form>
 

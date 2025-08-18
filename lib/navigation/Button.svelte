@@ -1,14 +1,14 @@
 <script>
-    export let button;
-    export let clickEvent;
+    export let label;
+    export let uri;
 </script>
 
-<button on:click|stopPropagation={clickEvent} >
-    {button.label}
-</button>
+<a href="{uri}" >
+    {label}
+</a>
 
 <style>
-button {
+a {
     min-width: 100px;
     display: inline-block;
     background-color: var(--theme-main-color);
@@ -26,16 +26,17 @@ button {
     border: none;
     cursor: pointer;
     padding: 0px 20px;
+    margin-top: 12px;
 }
-button:hover {
+a:hover {
     background-color: var(--theme-main-color-hover);
 }
-button:active {
+a:active {
     background-color: var(--theme-main-color-hover);
     position: relative;
     top: 1px;
 }
-button:disabled {
+a:disabled {
     background-color: var(--disabled-background-color) !important;
 }
 </style>
