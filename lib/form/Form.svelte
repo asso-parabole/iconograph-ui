@@ -8,12 +8,28 @@
 
     let waiting = false;
 
+    function setDeep(obj, path, value) {
+        let keys = path
+            .replace(/\]/g, '')   // supprime les `]`
+            .split(/\[/);         // découpe sur `[`
+
+        let current = obj;
+        keys.forEach((k, i) => {
+            if (i === keys.length - 1) {
+                current[k] = value;
+            } else {
+                if (!(k in current)) current[k] = {};
+                current = current[k];
+            }
+        });
+    }
+
     async function handleSubmit() {
         waiting = true;
         let body = {};
 
         inputs.forEach(i => {
-            body[i.props.name] = i.value;
+            setDeep(body, i.props.name, i.value);
         });
 
         console.log(body);

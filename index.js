@@ -1,6 +1,7 @@
 import FormButton from "./lib/form/FormButton.svelte";
 import Form from "./lib/form/Form.svelte"
 import Input from "./lib/form/Input.svelte"
+import SexeChoiceInput from "./lib/form/SexeChoiceInput.svelte";
 import BodySection from "./lib/layout/BodySection.svelte"
 import HeadSection from "./lib/layout/HeadSection.svelte"
 import Card from "./lib/layout/Card.svelte"
@@ -10,12 +11,16 @@ import Notification from "./lib/notification/Notification.svelte";
 import NotificationWrapper from "./lib/notification/NotificationWrapper.svelte";
 import Table from "./lib/table/Table.svelte"
 import CellLink from "./lib/table/CellLink.svelte"
+import UserPicture from "./lib/user/UserPicture.svelte";
+import NavBar from "./lib/navigation/NavBar.svelte";
+import UserSelectSingle from "./lib/user/UserSelectSingle.svelte";
 
 export {
     Button,
     FormButton,
     Form,
     Input,
+    SexeChoiceInput,
     BodySection,
     HeadSection,
     Card,
@@ -24,4 +29,7 @@ export {
     NotificationWrapper,
     Table,
     CellLink,
+    UserPicture,
+    NavBar,
+    UserSelectSingle,
 };

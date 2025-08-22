@@ -1,9 +1,9 @@
 <script>
     export let label;
-    export let uri;
+    export let url;
 </script>
 
-<a href="{uri}" >
+<a href={url} >
     {label}
 </a>
 
@@ -26,7 +26,6 @@ a {
     border: none;
     cursor: pointer;
     padding: 0px 20px;
-    margin-top: 12px;
 }
 a:hover {
     background-color: var(--theme-main-color-hover);

@@ -1,8 +1,6 @@
 <script>
     export let name;
     export let value;
-
-    console.log(value);
 </script>
 
 <div class="selector">
