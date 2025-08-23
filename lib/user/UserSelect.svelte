@@ -1,117 +1,147 @@
 <script>
     // @ts-nocheck
-    import { createEventDispatcher } from 'svelte';
+    import { onMount } from 'svelte';
+    import Portal from 'svelte-portal';
+    import UserPicture from './UserPicture.svelte';
     import {clickOutside} from './../utils/clickOutside.js';
-	import UserPicture from './UserPicture.svelte';
 
-	const dispatch = createEventDispatcher();
+    export let uri = '/user';
+    export let selected;
 
-    function handleUserSelection(uid) {
-        isOpen = false;
-        inputFilter = null;
-        filteredUsers = users;
+    let users = [];
+    let waiting = false;
+    let open = false;
+    let search = "";
 
-        dispatch('selectUser', {
-			id: uid
-		});
-    }
+    let dropdownEl;
+    let coords = { top: 0, left: 0, width: 0 };
 
-    function handleFilter() {
-        filteredUsers = users.filter((user) => {
-            let str = (user.firstname + ' ' + user.lastname).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-            const inputStr = inputFilter.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-            return (typeFilter == null || user.type.value == typeFilter) && str.includes(inputStr);
+    async function handleFilter() {
+        waiting = true;
+
+        const response = await fetch(`${uri}?contains=${search}&limit=100&page=1`,  {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
         });
+
+        const resBody = await response.json();
+        users = resBody.data;
+
+        waiting = false;
     }
 
-    export let users = []
-    export let typeFilter = null;
-
-    let inputFilter;
-    let filteredUsers = users.filter((user) => {
-        return (typeFilter == null || user.type.value == typeFilter);
+    onMount(() => {
+        handleFilter();
     });
-    let isOpen = false;
+
+    function openDropdown() {
+        const rect = dropdownEl.getBoundingClientRect();
+        coords = { top: rect.bottom, left: rect.left, width: rect.width };
+        open = !open;
+    }
+
+    function selectUser(user) {
+        selected = user;
+        open = false;
+        search = "";
+    }
+
 </script>
 
-<div id="user-select-wrapper" use:clickOutside on:click_outside={() => {isOpen = false}}>
-    <div>
-        <input type="text" bind:value={inputFilter} on:keyup={handleFilter} on:focus={() => (isOpen = !isOpen)} placeholder="Ajouter un utilisateur"/>
-    </div>
-    {#if isOpen}
-        <div>
-        {#each filteredUsers as user}
-            <!-- svelte-ignore a11y-click-events-have-key-events -->
-            <!-- svelte-ignore a11y-no-static-element-interactions -->
-            <div on:click|stopPropagation|preventDefault={handleUserSelection(user.id)}>
+<!-- svelte-ignore a11y_click_events_have_key_events -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div class="dropdown {open ? 'open' : ''}" bind:this={dropdownEl} use:clickOutside on:click_outside={() => {open = false}}
+    on:click|preventDefault|stopPropagation={openDropdown}>
+    <input on:keyup={handleFilter}             bind:value={search}
+            class="search-input" type="text" placeholder="Rechercher..." />
+
+    <!-- Liste déroulante -->
+    {#if open}
+    <Portal target="body" >
+        <div class="list" style="position: absolute; top:{coords.top}px; left:{coords.left}px; width: {coords.width}px;" >
+        <!-- Options -->
+        {#each users as user}
+            <div class="option" on:click={() => selectUser(user)}>
                 <UserPicture user={user} size={24}></UserPicture>
                 <span>{user.firstname} {user.lastname}</span>
             </div>
+        {:else}
+            <div class="option"><span>Aucun résultat</span></div>
         {/each}
         </div>
+    </Portal>
     {/if}
 </div>
 
 <style>
-input {
-    border: none
-}
-#user-select-wrapper {
-    background-color: #f5f5fb;
-    border-radius: 6px;
-    padding: 2px 0px;
-    transition: 0.3s ease-in-out all;
-    width: 220px;
+.dropdown {
     position: relative;
-    z-index: 100;
-}
-#user-select-wrapper > div:nth-of-type(1) {
-    background-image: url('/icons/icon-user-add.svg');
-    background-size: 20px auto;
-    background-repeat: no-repeat;
-    background-position: left center;
-    margin-right: 6px;
-    margin-left: 12px;
-    padding-left: 24px;
-}
-#user-select-wrapper > div:nth-of-type(1) > input{
-    background-color: #f5f5fb;
-    border-radius: 0px;
-    padding: 4px 6px;
-    height: 20px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #333;
-    cursor: pointer;
-    width: calc(100% - 12px);
-}
-#user-select-wrapper > div:nth-of-type(1) > input:focus{
-    cursor: initial;
-}
-#user-select-wrapper > div:nth-of-type(1) > input::placeholder {
-    color: #777;
-}
-#user-select-wrapper > div:nth-of-type(2) {
     display: flex;
-    flex-direction: column;
-    padding-bottom: 8px;
-    background-color: #f5f5fb;
-    width: 220px;
-    z-index: 1000;
-}
-#user-select-wrapper > div:nth-of-type(2) > div {
-    padding: 4px 12px;
+    background-color: var(--theme-input-bg-color, #ebebed);
+    height: var(--theme-input-height, 40px);
+    border: var(--theme-input-border, none);
+    border-radius: 8px;
+    padding: 0px 16px;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 400;
+    font-family: var(--theme-text-font);
+    color: var(--theme-input-text-font);
     flex: 1;
+}
+.dropdown.open {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+.search-input {
+    background-color: transparent;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 0px;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 400;
+    font-family: var(--theme-text-font);
+    color: var(--theme-input-text-font);
+    flex: 1;
+    outline: none;
+}
+
+.list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--theme-input-bg-highlight, #ebebed);
+    border-radius: 8px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    padding: 4px 0px;
+    max-height: 220px;
+    overflow-y: auto;
+    z-index: 9999;
+}
+
+.option {
     display: flex;
     align-items: center;
-}
-#user-select-wrapper > div:nth-of-type(2) > div > span {
-    color: #333;
-    font-weight: 600;
+    padding: 8px 12px;
+    gap: 8px;
     cursor: pointer;
-    margin-left: 8px;
 }
-#user-select-wrapper > div:nth-of-type(2) > div:hover {
-    background-color: #eee;
+.option > span {
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 400;
+    font-family: var(--theme-text-font);
+    color: var(--theme-input-text-color);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.option:hover {
+    background: var(--theme-input-bg-hover);
 }
 </style>

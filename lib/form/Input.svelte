@@ -10,8 +10,9 @@
     <textarea name="{name}" bind:value={value} ></textarea>
 {:else if type == "select" }
     <select name="{name}" bind:value={value} >
+        <option value="" disabled selected>Choisir une option</option>
         {#each options as opt}
-            <option value={String(opt).toUpperCase()}>
+            <option value={String(opt)}>
                 {opt}
             </option>
         {/each}
@@ -22,37 +23,33 @@
 
 <style>
 
-input, textarea {
-    background-color: #f5f5fb;
-    border: none;
-    border-radius: 6px;
-    padding: 7px 14px;
+input, textarea, select {
+    background-color: var(--theme-input-bg-color, #ebebed);
+    height: var(--theme-input-height, 40px);
+    border: var(--theme-input-border, none);
+    border-radius: 8px;
+    padding: 0px 16px;
     font-size: 14px;
-    line-height: 14px;
-    font-weight: 500;
-    border: 1px solid #f3f3f3; /*#d1d9e0;*/
+    line-height: 16px;
+    font-weight: 400;
+    font-family: var(--theme-text-font);
+    color: var(--theme-input-text-font);
+}
+input:focus, textarea:focus, select:focus {
+    outline: var(--theme-input-outline, 2px solid #3B94FC);
+    outline-offset: var(--theme-input-outline-offset, 0px);
 }
 textarea {
     padding: 12px 14px;
     max-width: calc(100% - 28px);
     min-height: 100px;
 }
-select {
-    font-family: var(--theme-text-font);
-    background-color: #f5f5fb;
-    border: none;
-    border-radius: 6px;
-    padding: 7px 14px;
-    font-size: 14px;
-    line-height: 14px;
-    font-weight: 500;
-}
 option {
     font-family: var(--theme-text-font);
+    color: var(--theme-input-text-font);
     padding: 7px 14px;
     font-size: 14px;
     line-height: 14px;
-    font-weight: 500;
 }
 
 </style>

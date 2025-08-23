@@ -51,11 +51,8 @@
             headers: { 'Content-Type': 'application/json' }
         });
 
-        console.log(response);
         const resBody = await response.json();
         data = resBody.data;
-
-        console.log(resBody);
 
         selected = {};
         waiting = false;

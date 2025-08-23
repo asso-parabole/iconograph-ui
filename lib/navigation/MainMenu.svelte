@@ -45,7 +45,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        z-index: 100;
+        z-index: 200;
     }
     nav.hidden {
         transform: translateX(0px);

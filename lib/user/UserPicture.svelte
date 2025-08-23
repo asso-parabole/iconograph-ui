@@ -17,6 +17,10 @@
     ]
 
     //let firstname = (user.)
+    if (!user.firstname) {
+        user.firstname = user.name;
+        user.lastname = "";
+    }
     let colorId = (user.firstname.charCodeAt(0) + user.lastname.charCodeAt(0)) % colors.length;
 </script>
 

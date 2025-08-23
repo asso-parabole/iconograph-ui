@@ -3,7 +3,7 @@
     import { addNotification } from "../notification/NotificationWrapper.svelte";
 
     export let inputs = [];
-    export let button;
+    export let button= { label: "Enregistrer"};
     export let uri;
 
     let waiting = false;
@@ -57,47 +57,36 @@
         else {
             addNotification({'status': 'success', 'message': data.message})
         }
-
     }
 </script>
 
 <form>
-
-    {#each inputs as input}
-        {#if !input.disabled }
-            <div class="form-row">
-                <div>
-                    <label for="{input.props.name}" class="mandatory">{input.props.label}</label>
-                    <svelte:component this={input.component} {...input.props} bind:value={input.value} />
-                </div>
-            </div>
-        {/if}
-    {/each}
+    <slot></slot>
 
     <FormButton button={button} clickEvent={handleSubmit} ></FormButton>
 
 </form>
 
 <style>
-    .form-row {
-        display: flex;
-        margin-bottom: 6px;
-    }
-    .form-row > div {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        margin-right: 12px;
-    }
-    label {
-        display: inline-block;
-        padding: 0px 0px;
-        margin: 4px 6px;
-        font-family: var(--theme-text-font);
-        font-size: 14px;
-        font-weight: 600;
-        color: #222;
-        width: fit-content;
-    }
+form :global(.form-row) {
+    display: flex;
+    margin-bottom: 6px;
+}
+form :global(.form-row > div) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-right: 12px;
+}
+form :global(label) {
+    display: inline-block;
+    padding: 0px 0px;
+    margin: 4px 6px;
+    font-family: var(--theme-text-font);
+    font-size: 14px;
+    font-weight: 600;
+    color: #222;
+    width: fit-content;
+}
 </style>

@@ -9,17 +9,23 @@ import MainMenu from "./lib/navigation/MainMenu.svelte"
 import Button from "./lib/navigation/Button.svelte"
 import Notification from "./lib/notification/Notification.svelte";
 import NotificationWrapper from "./lib/notification/NotificationWrapper.svelte";
+import { addNotification } from "./lib/notification/NotificationWrapper.svelte";
 import Table from "./lib/table/Table.svelte"
 import CellLink from "./lib/table/CellLink.svelte"
 import UserPicture from "./lib/user/UserPicture.svelte";
 import NavBar from "./lib/navigation/NavBar.svelte";
-import UserSelectSingle from "./lib/user/UserSelectSingle.svelte";
+import SelectUserInput from "./lib/user/SelectUserInput.svelte";
+import Modal from "./lib/layout/Modal.svelte"
+import FlexForm from "./lib/form/FlexForm.svelte";
+import SegmentedSwitchInput from "./lib/form/SegmentedSwitchInput.svelte"
 
 export {
     Button,
     FormButton,
     Form,
+    FlexForm,
     Input,
+    SegmentedSwitchInput,
     SexeChoiceInput,
     BodySection,
     HeadSection,
@@ -31,5 +37,7 @@ export {
     CellLink,
     UserPicture,
     NavBar,
-    UserSelectSingle,
+    SelectUserInput,
+    Modal,
+    addNotification,
 };

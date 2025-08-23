@@ -1,14 +1,21 @@
 <script>
     export let label;
     export let url;
+    export let clickEvent;
 </script>
 
+{#if clickEvent}
+<button on:click|stopPropagation={clickEvent}>
+    {label}
+</button>
+{:else}
 <a href={url} >
     {label}
 </a>
+{/if}
 
 <style>
-a {
+a, button {
     min-width: 100px;
     display: inline-block;
     background-color: var(--theme-main-color);
@@ -27,7 +34,7 @@ a {
     cursor: pointer;
     padding: 0px 20px;
 }
-a:hover {
+a:hover, button:hover {
     background-color: var(--theme-main-color-hover);
 }
 a:active {
