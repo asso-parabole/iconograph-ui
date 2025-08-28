@@ -1,0 +1,30 @@
+:root {
+    --background-color: #fcfcfc;
+    --main-bg-color: #ffffff;
+    --main-border-color: #e4e4e4;
+
+    --disabled-background-color: #555555;
+
+    /** Theme */
+    --theme-main-color: #6046c5;
+    --theme-main-color-hover: #44338b;
+    --theme-bg-color-light: #6046c511;
+    --theme-text-font: 'Roboto';
+
+    /** Inputs */
+    --theme-input-bg-color: #f5f5f9;
+    --theme-input-bg-highlight: #efeff5;
+    --theme-input-bg-hover: #dfdfe4;
+    --theme-input-border: none; /*2px solid ebebed*/
+    --theme-input-outline: 2px solid var(--theme-main-color);
+    --theme-input-outline-offset: 2px;
+    --theme-input-border-failure: 2px solid #f95959;
+    --theme-input-height: 40px;
+    --theme-input-text-color: #111;
+
+    /** Icons */
+    --logo-minimized: url('/favicon.svg');
+
+    /** Fonts */
+    --theme-main-font: 'Montserrat';
+}

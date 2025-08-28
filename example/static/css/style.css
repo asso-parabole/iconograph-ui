@@ -1,0 +1,133 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: "Roboto", serif;
+}
+body {
+    background-color: #fcfcfa;
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+a:visited {
+    color: inherit;
+}
+
+h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    color: #3b339c;
+    color: #111
+}
+h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #09025f;
+    color: #111
+}
+h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #09025f;
+}
+h5 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #212121;
+    font-size: 17px;
+}
+h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #555555;
+    font-size: 16px;
+}
+span {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    color: #aaa;
+    font-size: 14px;
+}
+
+
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+.flex-row > .flex-col {
+    flex: 1;
+}
+.flex-fill {
+    flex: 10;
+}
+.center {
+    align-items: center;
+}
+.start {
+    justify-content: flex-start;
+}
+.wrap {
+    flex-wrap: wrap;
+}
+.break {
+    flex-basis: 100%;
+    height: 0;
+}
+
+/**
+* Margin / Padding
+**/
+.margin-t-l {
+    margin-top: 24px;
+}
+.margin-t-m {
+    margin-top: 12px;
+}
+.margin-t-s {
+    margin-top: 4px;
+}
+.margin-b-l {
+    margin-bottom: 24px;
+}
+.margin-b-m {
+    margin-bottom: 12px;
+}
+.margin-b-s {
+    margin-bottom: 4px;
+}
+.margin-l-l {
+    margin-left: 24px;
+}
+.margin-l-m {
+    margin-left: 12px;
+}
+.margin-l-s {
+    margin-left: 4px;
+}
+
+#project-wrapper {
+    width: calc(100% - 40px) ! important;
+    max-width: 748px !important;
+}
+.project-card-wrapper {
+    min-width: calc(50% - 12px);
+    margin-right: 24px;
+}
+@media (max-width: 600px) {
+    .flex-row {
+        flex-direction: column;
+    }
+    .project-card-wrapper {
+        margin-right: 0px;
+    }
+    #project-wrapper {
+        width: calc(100% - 48px) !important;
+    }
+}

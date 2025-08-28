@@ -1,0 +1,20 @@
+services:
+  frnt-example:
+    container_name: frnt-example
+    image: frnt-example
+    build:
+      context: "./example"
+      dockerfile: Dockerfile.dev
+    user: "node"
+    environment:
+      - NODE_ENV=development
+      - PORT=5173
+    restart: unless-stopped
+    ports:
+      - 8001:5173
+      - 24678:24678
+    volumes:
+      - ./example:/usr/src/app
+      - ./lib:/usr/src/app/src/lib/iconograph-ui
+      - /usr/src/app/node_modules
+      - /usr/src/app/.svelte-kit

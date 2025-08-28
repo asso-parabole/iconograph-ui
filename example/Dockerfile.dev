@@ -1,0 +1,19 @@
+FROM node:24.6-alpine3.22 AS frnt-bibliapedia-dev
+LABEL maintainer="nathan.chevalier@asso-parabole.fr"
+
+RUN mkdir -p /usr/src/app/node_modules && mkdir -p /usr/src/app/.svelte-kit && chown -R node:node /usr/src/app
+
+WORKDIR /usr/src/app
+
+COPY ["package.json", "package-lock.json*", "./"]
+
+RUN npm install --save-dev --loglevel verbose
+
+USER node:node
+
+COPY --chown=node:node . .
+
+EXPOSE 5173
+EXPOSE 24678
+
+CMD ["npm", "run", "dev", "--", "--no-open", "--host", "0.0.0.0"]
