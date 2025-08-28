@@ -2,6 +2,7 @@
     // @ts-nocheck
     import { onMount } from 'svelte';
 	import TableRow from "./TableRow.svelte";
+    import TableFilter from './TableFilter.svelte';
 
     export let columns = [];
     export let uri;
@@ -98,6 +99,7 @@
             </div>
         </div>-->
 
+        <TableFilter columns={columns}></TableFilter>
         <div class="table-header">
             <div><div>
             {#each columns as c}

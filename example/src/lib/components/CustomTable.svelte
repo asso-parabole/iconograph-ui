@@ -1,8 +1,10 @@
 <script>
     // @ts-nocheck
     import Table from "$lib/iconograph-ui/table/Table.svelte";
+    import CustomInput from "./CustomInput.svelte";
     import CustomLabel from "./CustomLabel.svelte";
     import CustomLink from "./CustomLink.svelte";
+    import { enumType } from "./types/input";
 
     let statuses = [
         { name: 'ALL', value: 0 },
@@ -24,7 +26,7 @@
             sort: (a, b) => a.name.localeCompare(b.name)
         },
         { field: "city", label: "Ville", component: null, props: {}, width: 200, sort: (a, b) => a.name.localeCompare(b.name)},
-        { field: "type", label: "Type", component: CustomLabel, props: {}, width: 120, sort: (a, b) => null},
+        { field: "type", label: "Type", component: CustomLabel, props: {}, width: 120, sort: (a, b) => null, filterOptions: enumType},
         { field: "status", label: "Statut", component: null, props: {}, width: 120, sort: (a, b) => null},
     ]
 
