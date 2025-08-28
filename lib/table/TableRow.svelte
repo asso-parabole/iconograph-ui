@@ -14,7 +14,7 @@
                 {#if c.component}
                     <svelte:component this={c.component} {...c.props} {...{ [c.field]: row[c.field], ...row }}/>
                 {:else}
-                    <span>{row[c.field]}</span>
+                    <span>{ (row[c.field] && row[c.field] != "undefined ") ? row[c.field] : ''}</span>
                 {/if}
             </div>
         {/each}

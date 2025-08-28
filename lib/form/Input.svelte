@@ -12,9 +12,15 @@
     <select name="{name}" bind:value={value} >
         <option value="" disabled selected>Choisir une option</option>
         {#each options as opt}
+            {#if typeof opt === 'object' && opt !== null}
+            <option value={String(Object.keys(opt)[0])}>
+                {opt[Object.keys(opt)[0]]}
+            </option>
+            {:else}
             <option value={String(opt)}>
                 {opt}
             </option>
+            {/if}
         {/each}
     </select>
 {:else}
