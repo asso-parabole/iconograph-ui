@@ -7,6 +7,7 @@
 
     let selectedColumnsToFilter = [];
     let selectedColumn = '';
+    let aggregateFilters = {};
 
     async function addFilter() {
         if (selectedColumn && !selectedColumnsToFilter.includes(selectedColumn)) {
@@ -14,7 +15,15 @@
         }
     }
 
-    $: console.log(selectedColumnsToFilter.map(f => f.filterValue)[0]);
+    async function submitFilter() {
+        console.log("TODO: submit filter with a request. ", aggregateFilters);
+    }
+
+    $: {
+        selectedColumnsToFilter.forEach(f => {
+            aggregateFilters[f.field] = f.filterValue;
+        });
+    };
 </script>
 
 <div class="tableFilter-wrapper">
@@ -30,6 +39,9 @@
                 {/each}
             </select>
             <button on:click={addFilter}>Add Filter</button>
+            {#if selectedColumnsToFilter.length > 0}
+            <button on:click={submitFilter}>Run filter</button>
+            {/if}
         </div>
     </div>
 </div>

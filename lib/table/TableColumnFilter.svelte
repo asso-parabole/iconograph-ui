@@ -1,23 +1,21 @@
 <script>
     export let filter;
     export let value;
-
-    console.log("Column filter: ", filter);
 </script>
 
 <div class="wrapper">
     <div class="row">
         {#if filter}
             <div style="min-width: {filter.width}px; width: {filter.width}px;">
+                {filter.label}
                 {#if filter.filterOptions}
                     <select bind:value={value}>
                     {#each filter.filterOptions as o}
                         <option value={Object.keys(o)[0]}>{Object.values(o)[0]}</option>
                     {/each}
                     </select>
-                    <div>{ console.log(filter.filterOptions) }</div>
                 {:else}
-                    <input type="text"/>
+                    <input type="text" bind:value={value}/>
                 {/if}
             </div>
         {:else}
