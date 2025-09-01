@@ -65,6 +65,7 @@
           */
         ],
       },
+      placeholder: 'Redigez votre message',
     });
 
     if (content) {
