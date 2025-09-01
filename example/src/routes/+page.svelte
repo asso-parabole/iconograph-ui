@@ -29,6 +29,9 @@
     let open = false;
     let section = 'Doc';
 
+    function onEditorChange(event) {
+      console.log("HTML:", event.detail.html);
+    }
 </script>
 
 <HeadSection>
@@ -56,6 +59,9 @@
 
     </Card>
 
+    <Card padding={'0px'}>
+        <Editor on:change={onEditorChange}></Editor>
+    </Card>
 </BodySection>
 
 <Modal bind:open={open}>
@@ -77,5 +83,3 @@
         </FlexForm>
     </div>
 </Modal>
-
-<Editor></Editor>

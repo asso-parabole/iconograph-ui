@@ -45,11 +45,24 @@
           [{ size: [] }],
           ["bold", "italic", "underline", "strike"],
           [{ color: [] }, { background: [] }],
-          ["blockquote", "code-block"],
+          ["blockquote"],
           [{ list: "ordered" }, { list: "bullet" }],
           [{ align: [] }],
-          ["link", "image"],
-          ["clean"], // remove formatting button
+          ["link"],
+          ["clean"],
+
+          /*
+          All the configuration:
+            [{ font: [] }, { size: [] }],
+            ["bold", "italic", "underline", "strike"],
+            [{ color: [] }, { background: [] }],
+            [{ script: "sub" }, { script: "super" }],
+            [{ header: "1" }, { header: "2" }, "blockquote", "code-block"],
+            [{ list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
+            [{ direction: "rtl" }, { align: [] }],
+            ["link", "image", "video", "formula"],
+            ["clean"], // remove formatting button
+          */
         ],
       },
     });
@@ -59,13 +72,27 @@
     }
 
     editor.on("text-change", () => {
+        console.log("editor on text change")
       const html = editor.root.innerHTML;
       const delta = editor.getContents();
       dispatch("change", { html, delta });
     });
+    /*
+     Use like this
+     <Editor on:change={onEditorChange} />
+
+    function onEditorChange(event) {
+      console.log("HTML:", event.detail.html);
+      console.log("Delta:", event.detail.delta);
+    }
+    */
 
     addTooltips();
   });
 </script>
 
-<div bind:this={editorEl} style="height: 200px;"></div>
+<div bind:this={editorEl} style="width: 100%; height: 200px;"></div>
+
+<style>
+    /* TODO */
+</style>
