@@ -9,6 +9,7 @@
     import SexeChoiceInput from "$lib/iconograph-ui/form/SexeChoiceInput.svelte";
     import CustomInput from "$lib/components/CustomInput.svelte";
     import CustomTable from "../lib/components/CustomTable.svelte";
+    import Editor from "$lib/iconograph-ui/inputs/Editor.svelte";
     import SegmentedSwitchInput from "$lib/iconograph-ui/form/SegmentedSwitchInput.svelte"
 
     let options = [{ key: "Value" }]
@@ -76,3 +77,5 @@
         </FlexForm>
     </div>
 </Modal>
+
+<Editor></Editor>

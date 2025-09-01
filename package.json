@@ -27,6 +27,7 @@
     },
     "homepage": "https://github.com/asso-parabole/iconograph-ui#readme",
     "dependencies": {
+        "quill": "^2.0.3",
         "svelte": "^5.38.1"
     },
     "peerDependencies": {
