@@ -9,6 +9,7 @@
     import SexeChoiceInput from "$lib/iconograph-ui/form/SexeChoiceInput.svelte";
     import CustomInput from "$lib/components/CustomInput.svelte";
     import CustomTable from "../lib/components/CustomTable.svelte";
+    import Editor from "$lib/iconograph-ui/inputs/Editor.svelte";
     import SegmentedSwitchInput from "$lib/iconograph-ui/form/SegmentedSwitchInput.svelte"
 
     let options = [{ key: "Value" }]
@@ -28,6 +29,9 @@
     let open = false;
     let section = 'Doc';
 
+    function onEditorChange(event) {
+      console.log("HTML:", event.detail.html);
+    }
 </script>
 
 <HeadSection>
@@ -55,6 +59,9 @@
 
     </Card>
 
+    <Card padding={'0px'}>
+        <Editor on:change={onEditorChange}></Editor>
+    </Card>
 </BodySection>
 
 <Modal bind:open={open}>
