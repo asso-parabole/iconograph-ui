@@ -10,6 +10,32 @@
   let editorEl;
   let editor;
 
+  const tooltips = {
+    bold: "Bold",
+    italic: "Italic",
+    underline: "Underline",
+    strike: "Strikethrough",
+    link: "Insert Link",
+    image: "Insert Image",
+    blockquote: "Blockquote",
+    clean: "Remove Formatting",
+  };
+
+  function addTooltips() {
+    const toolbar = document.querySelector(".ql-toolbar");
+    if (!toolbar) return;
+
+    toolbar.querySelectorAll("button, select").forEach((btn) => {
+      const format =
+        btn.className.match(/ql-(\w+)/)?.[1] ||
+        btn.getAttribute("value") ||
+        null;
+      if (format && tooltips[format]) {
+        btn.setAttribute("title", tooltips[format]);
+      }
+    });
+  }
+
   onMount(async () => {
     const Quill = (await import("quill")).default;
     editor = new Quill(editorEl, {
@@ -37,6 +63,8 @@
       const delta = editor.getContents();
       dispatch("change", { html, delta });
     });
+
+    addTooltips();
   });
 </script>
 
