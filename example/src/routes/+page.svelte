@@ -25,7 +25,7 @@
         label: "Enregistrer",
     }
 
-    let open = true;
+    let open = false;
     let section = 'Doc';
 
 </script>
