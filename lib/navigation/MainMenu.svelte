@@ -22,9 +22,9 @@
     </div>
 
     <div class="bottom" >
-        <div>
-            <a aria-label="Signout Button" class="menu-item signout" href="/auth/signout" data-sveltekit-preload-data="off"></a>
-        </div>
+        {#each menu.bottom as item}
+            <MenuItem item={item}></MenuItem>
+        {/each}
     </div>
 </nav>
 
