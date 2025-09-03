@@ -4,7 +4,7 @@
 </script>
 
 <span>
-    <a href="{url}">{text ? text : ''}</a>
+    <a href="{url}" data-sveltekit-preload-data="off" >{text ? text : ''}</a>
 </span>
 
 <style>

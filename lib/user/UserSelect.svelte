@@ -19,7 +19,7 @@
     async function handleFilter() {
         waiting = true;
 
-        const response = await fetch(`${uri}?contains=${search}&limit=100&page=1`,  {
+        const response = await fetch(`${uri}?contains=${search}&limit=15&page=1`,  {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         });
@@ -29,10 +29,6 @@
 
         waiting = false;
     }
-
-    onMount(() => {
-        handleFilter();
-    });
 
     function openDropdown() {
         const rect = dropdownEl.getBoundingClientRect();

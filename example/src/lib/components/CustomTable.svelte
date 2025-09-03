@@ -34,4 +34,4 @@
 
 </script>
 
-<Table uri={uri} columns={settings} actions={false}></Table>
+<Table uri={uri} columns={settings} actions={false} pagination={true} ></Table>

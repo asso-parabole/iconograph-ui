@@ -3,16 +3,18 @@
     import { onMount } from 'svelte';
 	import TableRow from "./TableRow.svelte";
     import TableFilter from './TableFilter.svelte';
+    import TablePagination from './TablePagination.svelte';
 
     export let columns = [];
     export let uri;
     export let actions = false;
+    export let pagination = false;
+    export let filters = false;
 
     let waiting = false;
     let selected = {};
-    let pagination = false;
     let total = 0;
-    let limit = 500;
+    let limit = 25;
     let page = 1;
 
     let data = [];
@@ -47,13 +49,14 @@
     async function getData() {
         waiting = true;
 
-        const response = await fetch(`${uri}?limit=${limit}&page=${page}`,  {
+        const response = await fetch(`${uri}?limit=${limit}&offset=${(page - 1) * limit}`,  {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         });
 
         const resBody = await response.json();
         data = resBody.data;
+        total = resBody.count ? resBody.count : 0;
 
         selected = {};
         waiting = false;
@@ -74,7 +77,6 @@
 
 </script>
 
-<!--<div style="max-width: min(calc(100% - 24px), 1100px) !important;">-->
 <div class="table-wrapper">
     <div>
         <!--<div >
@@ -86,20 +88,15 @@
                         <h4>{data.length} Schedules Rules</h4>
                         <span>({Object.values(selected).filter(Boolean).length} sélectionnées)</span>
                     </div>
-                    <div style="display: flex; gap: 12px;">
-                        <select bind:value={status} on:change={resetAndGetData} disabled={waiting} >
-                            {#each statuses as option}
-                                <option value={option.value}> {option.name} </option>
-                            {/each}
-                        </select>
-
-                    </div>
                 </div>
                 {/if}
             </div>
         </div>-->
 
-        <TableFilter columns={columns}></TableFilter>
+        {#if filters}
+            <TableFilter columns={columns}></TableFilter>
+        {/if}
+
         <div class="table-header">
             <div><div>
             {#each columns as c}
@@ -117,27 +114,12 @@
 
         <div class="table-body">
             {#each data as d }
-            <TableRow actions={actions} columns={columns} row={d}>
-            </TableRow>
+                <TableRow actions={actions} columns={columns} row={d}></TableRow>
             {/each}
 
-            <!--{#if pagination && data.length > 0}
-            <div class="footer-pagination" >
-                <div>
-                    Page <input type="number" bind:value={page} on:change={getData} disabled={waiting}/>
-                    / {Math.round(total / limit)}
-                </div>
-                <div>
-                    <select bind:value={limit} on:change={resetAndGetData} disabled={waiting} >
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                        <option value="500">500</option>
-                        <option value="1000">1000</option>
-                    </select>
-                    / page
-                </div>
-            </div>
-            {/if}-->
+            {#if pagination && data.length > 0}
+                <TablePagination bind:page={page} bind:limit={limit} bind:waiting={waiting} bind:total={total} on:pageChange={getData} on:limitChange={resetAndGetData} ></TablePagination>
+            {/if}
 
             {#if data.length == 0}
                 <span>Aucune donnée disponible</span>
@@ -249,29 +231,5 @@
         font-weight: 600;
         font-size: 14px;
     }
-    .footer-pagination {
-        background-color: #f7f7f7;
-        border-bottom: 1px solid #e5e5e5;
-        width: calc(100% - 56px);
-        height: 48px;
-        padding: 0px 28px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        color: #555;
-        font-weight: 600;
-        font-size: 14px;
-        display: flex;
-        justify-content: center;
-        width: calc(100% - 56px);
-    }
-    .footer-pagination input[type="number"]{
-        width: 50px;
-        background-color: #fff;
-        margin: 0px 6px;
-    }
-    .footer-pagination select{
-        background-color: #fff;
-        margin-left: 60px;
-    }
+
 </style>
