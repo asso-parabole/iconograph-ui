@@ -10,6 +10,6 @@
 
 .content {
     width: 100%;
-    max-width: 800px;
+    max-width: calc(100vw - 132px);
 }
 </style>

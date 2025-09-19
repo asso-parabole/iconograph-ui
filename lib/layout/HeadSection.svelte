@@ -17,6 +17,7 @@
     width: 100%;
     border-radius: 0px;
     padding: 0px;
+    padding-left: 32px;
     background-color: var(--main-bg-color);
     box-sizing: border-box;
     border-bottom: 1px solid var(--main-border-color);

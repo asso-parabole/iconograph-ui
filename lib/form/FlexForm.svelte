@@ -3,8 +3,11 @@
     import { addNotification } from "../notification/NotificationWrapper.svelte";
 
     export let inputs = [];
-    export let button= { label: "Enregistrer"};
+    export let button= {};
     export let uri;
+
+    const defaultButton = { label: "Enregistrer", clickEvent: handleSubmit };
+    $: button = { ...defaultButton, ...button };
 
     let waiting = false;
 
@@ -63,7 +66,7 @@
 <form>
     <slot></slot>
 
-    <FormButton button={button} clickEvent={handleSubmit} ></FormButton>
+    <FormButton button={button} clickEvent={button.clickEvent} ></FormButton>
 
 </form>
 

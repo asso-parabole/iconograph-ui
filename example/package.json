@@ -18,6 +18,7 @@
 		"@sveltejs/vite-plugin-svelte": "^6.0.0",
 		"svelte": "^5.0.0",
 		"quill": "^2.0.3",
+        "quill-better-table": "1.2.10",
 		"svelte-check": "^4.0.0",
 		"svelte-portal": "2.2.1",
 		"typescript": "^5.0.0",

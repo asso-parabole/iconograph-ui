@@ -11,7 +11,7 @@ services:
       - PORT=5173
     restart: unless-stopped
     ports:
-      - 8001:5173
+      - 8003:5173
       - 24678:24678
     volumes:
       - ./example:/usr/src/app

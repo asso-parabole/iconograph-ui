@@ -77,18 +77,9 @@
 
     <Card>
 
-        <div style="width: 120px;">
-            <UserSelect></UserSelect>
-        </div>
+        <SelectUserInput multiple={true}></SelectUserInput>
 
     </Card>
-
-    <Card>
-
-        <UserSelect></UserSelect>
-
-    </Card>
-
 
     <Card padding={'24px'}>
         <h1>My Form</h1>

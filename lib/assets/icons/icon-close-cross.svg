@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 48 48"
+   width="96px"
+   height="96px"
+   version="1.1"
+   id="svg3"
+   sodipodi:docname="icon-close-cross.svg"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs3" />
+  <sodipodi:namedview
+     id="namedview3"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:zoom="3.9895833"
+     inkscape:cx="48"
+     inkscape:cy="48"
+     inkscape:window-width="1366"
+     inkscape:window-height="697"
+     inkscape:window-x="1724"
+     inkscape:window-y="1432"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3" />
+  <path
+     id="path2"
+     d="M 16.756283,13.134424 13.134424,16.756283 20.378141,24 13.134424,31.243717 16.756283,34.865576 24,27.621859 31.243717,34.865576 34.865576,31.243717 27.621859,24 34.865576,16.756283 31.243717,13.134424 24,20.378141 Z"
+     style="stroke-width:1.28066;fill:#606060;fill-opacity:1" />
+</svg>

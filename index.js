@@ -17,7 +17,11 @@ import NavBar from "./lib/navigation/NavBar.svelte";
 import SelectUserInput from "./lib/user/SelectUserInput.svelte";
 import Modal from "./lib/layout/Modal.svelte"
 import FlexForm from "./lib/form/FlexForm.svelte";
+import Editor from "./lib/inputs/Editor.svelte";
 import SegmentedSwitchInput from "./lib/form/SegmentedSwitchInput.svelte"
+import DateStr from "./lib/display/DateStr.svelte";
+import Field from "./lib/display/Field.svelte";
+import Link from "./lib/display/Link.svelte";
 
 export {
     Button,
@@ -39,5 +43,9 @@ export {
     NavBar,
     SelectUserInput,
     Modal,
+    Editor,
+    DateStr,
+    Field,
+    Link,
     addNotification,
 };

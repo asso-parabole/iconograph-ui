@@ -11,8 +11,8 @@
 
 <div class="footer-pagination" >
     <div>
-        Page <input type="number" bind:value={page} onchange={() => { dispatch('pageChange', {})}} disabled={waiting}/>
-        / {Math.round(total / limit)}
+        Page <input type="number" bind:value={page} onchange={() => { dispatch('pageChange', {})}} disabled={waiting} min="1" max={Math.ceil(total / limit)}/>
+        / {Math.ceil(total / limit)}
     </div>
     <div>
         <select bind:value={limit} onchange={() => { dispatch('limitChange', {})}} disabled={waiting} >

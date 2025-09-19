@@ -65,7 +65,7 @@
         flex: 1;
         width: 100%;
         max-height: calc(100vh - 140px - 96px);
-        overflow-y: scroll;
+        overflow-y: auto;
     }
     nav ul {
         display: flex;

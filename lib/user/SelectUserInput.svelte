@@ -4,39 +4,80 @@
 	import UserPicture from './UserPicture.svelte';
 
     export let name;
-    export let value;
+    export let value = null;
+    export let multiple = false;
 
-    function handleRemove() {
-        value = undefined;
+    if (multiple)
+        value = [];
+
+    function handleRemove(id) {
+        if (multiple)
+            value = value.filter(v => v.id != id);
+        else
+            value = undefined;
+    }
+
+    function handleSelect(e) {
+        value.push(e.detail.user);
+        value = value;
+        console.log(value);
     }
 
 </script>
 
-<div id="single-select-wrapper" name={name} >
-    {#if !value}
-        <UserSelect uri={'/user'} bind:selected={value} ></UserSelect>
-    {:else}
+{#if multiple}
+    <div id="multiple-select-wrapper" name={name} >
+        {#each value as v}
+            <div>
+                <div class="user-label">
+                    <UserPicture size={24} user={v}></UserPicture>
+                    <span>{v.firstname} {v.lastname}</span>
+                    <!-- svelte-ignore a11y_click_events_have_key_events -->
+                    <!-- svelte-ignore a11y_no_static_element_interactions -->
+                    <div on:click={() => handleRemove(v.id)}>+</div>
+                </div>
+            </div>
+        {/each}
         <div>
-            <UserPicture size={24} user={value}></UserPicture>
-            <span>{value.firstname} {value.lastname}</span>
-            <!-- svelte-ignore a11y_click_events_have_key_events -->
-            <!-- svelte-ignore a11y_no_static_element_interactions -->
-            <div on:click={handleRemove}>+</div>
+            <UserSelect uri={'/user'} on:selectUser={handleSelect}></UserSelect>
         </div>
-    {/if}
-</div>
+    </div>
+{:else}
+    <div id="single-select-wrapper" name={name} >
+        {#if !value}
+            <UserSelect uri={'/user'} bind:selected={value} ></UserSelect>
+        {:else}
+            <div class="user-label">
+                <UserPicture size={24} user={value}></UserPicture>
+                <span>{value.firstname} {value.lastname}</span>
+                <!-- svelte-ignore a11y_click_events_have_key_events -->
+                <!-- svelte-ignore a11y_no_static_element_interactions -->
+                <div on:click={handleRemove}>+</div>
+            </div>
+        {/if}
+    </div>
+{/if}
 
 <style>
+#multiple-select-wrapper {
+    display: inline-flex;
+    gap: 8px;
+    width: calc(100% - 16px);
+    background-color: var(--theme-input-bg-color, #ebebed);
+    padding: 8px;
+    border-radius: 8px;
+    flex-wrap: wrap;
+}
 #single-select-wrapper {
     display: flex;
     width: 100%;
 }
-#single-select-wrapper > div {
+.user-label {
     display: flex;
     align-items: center;
-    background-color: var(--theme-input-bg-color, #ebebed);
-    height: var(--theme-input-height, 40px);
-    border: var(--theme-input-border, none);
+    background-color: #ffffff;
+    height: calc(var(--theme-input-height, 40px) - 2px);
+    border: 1px solid #e4e4e4;
     border-radius: 8px;
     padding: 0px 16px;
     font-size: 14px;
@@ -46,7 +87,7 @@
     color: var(--theme-input-text-font);
     flex: 1;
 }
-#single-select-wrapper > div > span {
+.user-label > span {
     font-size: 14px;
     line-height: 16px;
     font-weight: 400;
@@ -58,7 +99,7 @@
     margin-left: 8px;
     flex: 1;
 }
-#single-select-wrapper > div > div:nth-of-type(2) {
+.user-label > div:nth-of-type(2) {
     cursor: pointer;
     margin-left: 8px;
     height: 16px;
@@ -73,7 +114,7 @@
     transform: rotate(45deg);
     transition: all ease-in-out 0.14s;
 }
-#single-select-wrapper > div > div:nth-of-type(2):hover {
+.user-label > div:nth-of-type(2):hover {
     background-color: #ccc;
 }
 

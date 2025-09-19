@@ -4,14 +4,18 @@
 	import TableRow from "./TableRow.svelte";
     import TableFilter from './TableFilter.svelte';
     import TablePagination from './TablePagination.svelte';
+    import refreshIcon from '../assets/icons/icon-refresh.svg?url';
+    import loaderIcon from '../assets/icons/loader-ring-grey.svg?url';
 
     export let columns = [];
     export let uri;
     export let actions = false;
+    export let header = false;
     export let pagination = false;
-    export let filters = false;
+    export let filtering = false;
 
     let waiting = false;
+    let filters = {}
     let selected = {};
     let total = 0;
     let limit = 25;
@@ -48,13 +52,17 @@
 
     async function getData() {
         waiting = true;
+        data = [];
 
-        const response = await fetch(`${uri}?limit=${limit}&offset=${(page - 1) * limit}`,  {
+        const filterStr = Object.keys(filters).map(k => k + '=' + encodeURIComponent(filters[k])).join('&');
+        const response = await fetch(`${uri}limit=${limit}&offset=${(page - 1) * limit}&${filterStr}`,  {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         });
 
         const resBody = await response.json();
+
+        console.log(resBody);
         data = resBody.data;
         total = resBody.count ? resBody.count : 0;
 
@@ -65,9 +73,10 @@
             addNotification({'status': 'failure', 'message': response.status + ': ' + resBody.message})
     }
 
-    function resetAndGetData() {
+    function resetAndGetData(f = {}) {
         selected = {};
         page = 1;
+        filters = f;
         getData();
     }
 
@@ -79,22 +88,27 @@
 
 <div class="table-wrapper">
     <div>
-        <!--<div >
+        <div >
             <div>
-                {#if actions}
+                {#if header}
                 <div class="hd-actions" >
                     <div>
-                        <input class="checkbox" type="checkbox" on:change={(e) => handleSelectAll(e)}/>
-                        <h4>{data.length} Schedules Rules</h4>
-                        <span>({Object.values(selected).filter(Boolean).length} sélectionnées)</span>
+                        <!--<input class="checkbox" type="checkbox" on:change={(e) => handleSelectAll(e)}/>--
+                        <h4>{data.length} Schedules Rules</h4>-->
+                        <span>{data.length} / {total} éléments </span>
+                    </div>
+
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <slot name="actionButton"></slot>
+                        <button on:click={getData} class="refresh-btn" aria-label="Refresh Data" style:background-image={`url("${waiting ? loaderIcon : refreshIcon}")`}></button>
                     </div>
                 </div>
                 {/if}
             </div>
-        </div>-->
+        </div>
 
-        {#if filters}
-            <TableFilter columns={columns}></TableFilter>
+        {#if filtering}
+            <TableFilter columns={columns} on:filter={(e) => resetAndGetData(e.detail)}></TableFilter>
         {/if}
 
         <div class="table-header">
@@ -117,13 +131,16 @@
                 <TableRow actions={actions} columns={columns} row={d}></TableRow>
             {/each}
 
+            {#if waiting}
+                <span style:background-image={`url("${loaderIcon}")`}>Chargement en cours</span>
+            {:else if data.length == 0}
+                <span>Aucune donnée disponible</span>
+            {/if}
+
             {#if pagination && data.length > 0}
                 <TablePagination bind:page={page} bind:limit={limit} bind:waiting={waiting} bind:total={total} on:pageChange={getData} on:limitChange={resetAndGetData} ></TablePagination>
             {/if}
 
-            {#if data.length == 0}
-                <span>Aucune donnée disponible</span>
-            {/if}
         </div>
     </div>
 </div>
@@ -186,6 +203,9 @@
         text-align: center;
         font-weight: 600;
         color: #aaa;
+        background-position: calc(50% - 100px) center;
+        background-size: 24px auto;
+        background-repeat: no-repeat;
     }
     .sort-icon {
         width: 18px;
@@ -209,13 +229,13 @@
     }
     .hd-actions {
         background-color: #ffffff;
-        border-bottom: 1px solid #e5e5e5;
         width: calc(100% - 56px);
         height: 48px;
         padding: 0px 28px;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        margin-top: 8px;
     }
     .hd-actions > div:nth-of-type(1) {
         display: flex;
@@ -230,6 +250,24 @@
         color: #777;
         font-weight: 600;
         font-size: 14px;
+    }
+
+    .refresh-btn {
+        padding: 6px 16px;
+        background-color: transparent;
+        border: 1px solid var(--main-border-color);
+        color: var(--theme-main-color);
+        border-radius: 32px;
+        font-weight: 600;
+        transition: all ease-in-out 0.13s;
+        background-position: center center;
+        background-size: 16px auto;
+        background-repeat: no-repeat;
+        height: 32px;
+    }
+    .refresh-btn:hover {
+        cursor: pointer;
+        background-color: var(--theme-bg-color-light);
     }
 
 </style>

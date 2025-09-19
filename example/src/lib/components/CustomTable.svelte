@@ -1,6 +1,7 @@
 <script>
     // @ts-nocheck
     import Table from "$lib/iconograph-ui/table/Table.svelte";
+    import Button from "$lib/iconograph-ui/navigation/Button.svelte";
     import CustomInput from "./CustomInput.svelte";
     import CustomLabel from "./CustomLabel.svelte";
     import CustomLink from "./CustomLink.svelte";
@@ -27,11 +28,15 @@
         },
         { field: "city", label: "Ville", component: null, props: {}, width: 200, sort: (a, b) => a.name.localeCompare(b.name)},
         { field: "type", label: "Type", component: CustomLabel, props: {}, width: 120, sort: (a, b) => null, filterOptions: enumType},
-        { field: "status", label: "Statut", component: null, props: {}, width: 120, sort: (a, b) => null},
+        { field: "status", label: "Statut", component: null, props: {}, width: 120, sort: (a, b) => null, filterOptions: false},
     ]
 
-    let uri = "/example"
+    let uri = "/example?"
 
 </script>
 
-<Table uri={uri} columns={settings} actions={false} pagination={true} ></Table>
+<Table uri={uri} columns={settings} actions={false} header={true} pagination={true} filtering={true}>
+    <div slot="actionButton">
+        <Button label="Ajouter"></Button>
+    </div>
+</Table>

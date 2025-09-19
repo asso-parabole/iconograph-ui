@@ -11,6 +11,7 @@
     import CustomTable from "../lib/components/CustomTable.svelte";
     import Editor from "$lib/iconograph-ui/inputs/Editor.svelte";
     import SegmentedSwitchInput from "$lib/iconograph-ui/form/SegmentedSwitchInput.svelte"
+    import Link from "$lib/iconograph-ui/display/Link.svelte";
 
     let options = [{ key: "Value" }]
     let inputs = [
@@ -49,6 +50,10 @@
 
     <Card>
         <div on:click={() => open = true}>Open Modal</div>
+        <Link icon={"DOC"} uri={"/"} label={"CR Bibliapedia"}></Link>
+        <Link icon={"FOLDER"} uri={"/"} label={"CR Bibliapedia"}></Link>
+        <Link icon={"LINK"} uri={"/"} label={"CR Bibliapedia"}></Link>
+        <Link uri={"/"} label={"CR Bibliapedia"}></Link>
     </Card>
 
     <Card padding={'24px'}>
@@ -65,7 +70,7 @@
 </BodySection>
 
 <Modal bind:open={open}>
-    <div style="padding: 24px; width: 600px; height: 350px; margin-bottom: 24px;">
+    <div style="padding: 24px; width: 80vw; height: 350px; margin-bottom: 24px;">
         <FlexForm inputs={inputs} uri={'/test'} button={button}>
             <SegmentedSwitchInput options={['Doc', 'Group', 'Entité']} bind:selected={section} ></SegmentedSwitchInput>
             <p style="margin: 12px;">{section} is selected</p>

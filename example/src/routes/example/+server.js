@@ -2,6 +2,7 @@
 import { json } from '@sveltejs/kit';
 
 export async function GET({ request, url, cookies }) {
+    console.log(url.searchParams);
     let limit = url.searchParams.get('limit');
     let offset = url.searchParams.get('offset');
     offset = offset ? offset : 1;
@@ -109,5 +110,8 @@ export async function GET({ request, url, cookies }) {
         { id: "1100", name: "Sainte Édith", city: "Angleterre", type: "FEMME", status: "ACTIVE" }
     ]
 
-	return json({ data: response.slice((offset - 1) * limit, offset * limit), count: response.length }, { status: 200 });
+    if (url.searchParams.get('name'))
+        return json({ data: response.filter(a => a.name.includes(url.searchParams.get('name'))).slice((offset) * limit, (offset + 1) * limit), count: response.filter(a => a.name.includes(url.searchParams.get('name'))).length }, { status: 200 });
+
+	return json({ data: response.slice((offset) * limit, (offset + 1) * limit), count: response.length }, { status: 200 });
 }

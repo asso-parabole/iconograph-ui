@@ -4,6 +4,9 @@
     import Portal from 'svelte-portal';
     import UserPicture from './UserPicture.svelte';
     import {clickOutside} from './../utils/clickOutside.js';
+    import { createEventDispatcher } from 'svelte'
+
+    const dispatch = createEventDispatcher()
 
     export let uri = '/user';
     export let selected;
@@ -40,6 +43,7 @@
         selected = user;
         open = false;
         search = "";
+        dispatch('selectUser', { user: user });
     }
 
 </script>
@@ -49,7 +53,7 @@
 <div class="dropdown {open ? 'open' : ''}" bind:this={dropdownEl} use:clickOutside on:click_outside={() => {open = false}}
     on:click|preventDefault|stopPropagation={openDropdown}>
     <input on:keyup={handleFilter}             bind:value={search}
-            class="search-input" type="text" placeholder="Rechercher..." />
+            class="search-input" type="text" placeholder="Rechercher un utilisateur..." />
 
     <!-- Liste déroulante -->
     {#if open}

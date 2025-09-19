@@ -4,6 +4,10 @@
     export let value;
     export let options = []
     export let required = false;
+
+    if (type == 'date')
+        console.log(value);
+
 </script>
 
 {#if type == "textarea"}
