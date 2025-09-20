@@ -31,7 +31,9 @@
             <div>
                 <div class="user-label">
                     <UserPicture size={24} user={v}></UserPicture>
-                    <span>{v.firstname} {v.lastname}</span>
+                    <a href={`/user/${v.id}`}>
+                        <span>{v.firstname} {v.lastname}</span>
+                    </a>
                     <!-- svelte-ignore a11y_click_events_have_key_events -->
                     <!-- svelte-ignore a11y_no_static_element_interactions -->
                     <div on:click={() => handleRemove(v.id)}>+</div>
@@ -49,7 +51,9 @@
         {:else}
             <div class="user-label">
                 <UserPicture size={24} user={value}></UserPicture>
-                <span>{value.firstname} {value.lastname}</span>
+                <a href={`/user/${value.id}`}>
+                    <span>{value.firstname} {value.lastname}</span>
+                </a>
                 <!-- svelte-ignore a11y_click_events_have_key_events -->
                 <!-- svelte-ignore a11y_no_static_element_interactions -->
                 <div on:click={handleRemove}>+</div>
@@ -87,7 +91,7 @@
     color: var(--theme-input-text-font);
     flex: 1;
 }
-.user-label > span {
+.user-label span {
     font-size: 14px;
     line-height: 16px;
     font-weight: 400;
@@ -97,6 +101,9 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     margin-left: 8px;
+    flex: 1;
+}
+.user-label a, .user-label span {
     flex: 1;
 }
 .user-label > div:nth-of-type(2) {

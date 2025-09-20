@@ -16,6 +16,7 @@
     let open = false;
     let search = "";
 
+    let y = 0;
     let dropdownEl;
     let coords = { top: 0, left: 0, width: 0 };
 
@@ -48,6 +49,8 @@
 
 </script>
 
+<svelte:window bind:scrollY={y} />
+
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div class="dropdown {open ? 'open' : ''}" bind:this={dropdownEl} use:clickOutside on:click_outside={() => {open = false}}
@@ -58,7 +61,7 @@
     <!-- Liste déroulante -->
     {#if open}
     <Portal target="body" >
-        <div class="list" style="position: absolute; top:{coords.top}px; left:{coords.left}px; width: {coords.width}px;" >
+        <div class="list" style="position: absolute; top:{coords.top + y}px; left:{coords.left}px; width: {coords.width}px;" >
         <!-- Options -->
         {#each users as user}
             <div class="option" on:click={() => selectUser(user)}>
