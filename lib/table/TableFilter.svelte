@@ -10,6 +10,7 @@
     export let columns;
 
     let selectedColumnsToFilter = [];
+    export { selectedColumnsToFilter as filters };
     let aggregateFilters = {};
 
     async function addFilter(col) {
@@ -31,7 +32,6 @@
     }
 
     async function submitFilter() {
-        console.log(aggregateFilters);
         dispatch("filter", aggregateFilters);
     }
 
