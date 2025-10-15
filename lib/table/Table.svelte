@@ -8,6 +8,7 @@
     import loaderIcon from '../assets/icons/loader-ring-grey.svg?url';
 
     export let columns = [];
+    export let defaultFilters = [];
     export let uri;
     export let actions = false;
     export let header = false;
@@ -65,7 +66,6 @@
 
         const resBody = await response.json();
 
-        console.log(resBody);
         data = resBody.data;
         total = resBody.count ? resBody.count : 0;
 
@@ -127,7 +127,7 @@
 
         <div>
         {#if filtering}
-            <TableFilter columns={columns} on:filter={(e) => resetAndGetData(e.detail)}></TableFilter>
+            <TableFilter columns={columns} filters={defaultFilters} on:filter={(e) => resetAndGetData(e.detail)}></TableFilter>
         {/if}
         </div>
 
