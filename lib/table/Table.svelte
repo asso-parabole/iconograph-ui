@@ -23,6 +23,9 @@
 
     let data = [];
 
+    let els = [];
+    let actualWidths = columns.map(c => c.width);
+
     /*
     function handleSort(sname) {
         settings.forEach(e => {
@@ -82,13 +85,28 @@
 
     onMount(() => {
         resetAndGetData()
+        const observers = [];
+
+        columns.forEach((_, i) => {
+            const ob = new ResizeObserver(() => {
+                actualWidths[i] = els[i].offsetWidth;
+                //columns[i].width = actualWidths[i];
+
+                actualWidths = [...actualWidths];
+            });
+
+            ob.observe(els[i]);
+            observers.push(ob);
+        });
+
+        return () => observers.forEach(o => o.disconnect());
     });
 
 </script>
 
 <div class="table-wrapper">
     <div>
-        <div >
+        <div>
             <div>
                 {#if header}
                 <div class="hd-actions" >
@@ -107,14 +125,16 @@
             </div>
         </div>
 
+        <div>
         {#if filtering}
             <TableFilter columns={columns} on:filter={(e) => resetAndGetData(e.detail)}></TableFilter>
         {/if}
+        </div>
 
         <div class="table-header">
             <div><div>
-            {#each columns as c}
-                <div style="min-width: {c.width}px; width: {c.width}px;">
+            {#each columns as c, i}
+                <div bind:this={els[i]} style="min-width: {c.width}px; width: {c.width}px;" class="col-h">
                     {c.label}
                     {#if c.sort != null }
                     <!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -190,6 +210,9 @@
         padding-right: 24px;
         display: flex;
         gap: 8px;
+        /*border-right: 1px red solid;
+        resize: horizontal;
+        overflow: hidden;*/
     }
     .table-body {
         width: 100%;

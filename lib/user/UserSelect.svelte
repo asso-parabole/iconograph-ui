@@ -55,7 +55,7 @@
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div class="dropdown {open ? 'open' : ''}" bind:this={dropdownEl} use:clickOutside on:click_outside={() => {open = false}}
     on:click|preventDefault|stopPropagation={openDropdown}>
-    <input on:keyup={handleFilter}             bind:value={search}
+    <input on:keyup={handleFilter} bind:value={search}
             class="search-input" type="text" placeholder="Rechercher un utilisateur..." />
 
     <!-- Liste déroulante -->

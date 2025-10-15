@@ -3,8 +3,9 @@
     import { addNotification } from "../notification/NotificationWrapper.svelte";
 
     export let inputs = [];
-    export let button= {};
+    export let button = {};
     export let uri;
+    export let callbackFunction = () => {};
 
     const defaultButton = { label: "Enregistrer", clickEvent: handleSubmit };
     $: button = { ...defaultButton, ...button };
@@ -13,8 +14,8 @@
 
     function setDeep(obj, path, value) {
         let keys = path
-            .replace(/\]/g, '')   // supprime les `]`
-            .split(/\[/);         // découpe sur `[`
+            .replace(/\]/g, '')
+            .split(/\[/);
 
         let current = obj;
         keys.forEach((k, i) => {
@@ -32,11 +33,12 @@
         let body = {};
 
         inputs.forEach(i => {
+            if (i.props.stringify)
+                i.value = JSON.stringify(i.value);
             setDeep(body, i.props.name, i.value);
         });
 
         console.log(body);
-        //await timeout(500);
 
         const response = await fetch(uri, {
 			method: 'POST',
@@ -52,13 +54,13 @@
             return addNotification({'status': 'failure', 'message': 'Erreur ' + response.status })
 
         const data = await response.json();
-        console.log(data);
 
         if (!response.ok) {
             addNotification({'status': 'failure', 'message': response.status + ': ' + data.message})
         }
         else {
             addNotification({'status': 'success', 'message': data.message})
+            callbackFunction(data);
         }
     }
 </script>

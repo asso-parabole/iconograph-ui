@@ -1,6 +1,6 @@
 {
     "name": "iconograph-ui",
-    "version": "1.4.10",
+    "version": "1.5.6",
     "description": "A Svelte Kit components library",
     "main": "./index.js",
     "svelte": "./index.js",
@@ -30,7 +30,8 @@
         "svelte": "^5.38.1"
     },
     "peerDependencies": {
-        "quill": "^2.0.3",
+        "quill": "2.0.3",
+        "quill-better-table": "1.2.10",
         "svelte-portal": "2.2.1"
     }
 }

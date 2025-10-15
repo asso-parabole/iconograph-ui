@@ -22,6 +22,8 @@ import SegmentedSwitchInput from "./lib/form/SegmentedSwitchInput.svelte"
 import DateStr from "./lib/display/DateStr.svelte";
 import Field from "./lib/display/Field.svelte";
 import Link from "./lib/display/Link.svelte";
+import ActionButton from "./lib/form/ActionButton.svelte";
+import MultiSelect from "./lib/form/MultiSelect.svelte";
 
 export {
     Button,
@@ -47,5 +49,7 @@ export {
     DateStr,
     Field,
     Link,
+    ActionButton,
+    MultiSelect,
     addNotification,
 };

@@ -3,12 +3,14 @@
     export let clickEvent;
 </script>
 
-<button on:click|stopPropagation={clickEvent} >
+<!-- svelte-ignore a11y_click_events_have_key_events -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div class="button" on:click|preventDefault|stopPropagation={clickEvent}> <!-- Prevent button default submit event when pressing enter-->
     {button.label}
-</button>
+</div>
 
 <style>
-button {
+.button {
     min-width: 100px;
     display: inline-block;
     background-color: var(--theme-main-color);
@@ -28,15 +30,15 @@ button {
     padding: 0px 20px;
     margin-top: 12px;
 }
-button:hover {
+.button:hover {
     background-color: var(--theme-main-color-hover);
 }
-button:active {
+.button:active {
     background-color: var(--theme-main-color-hover);
     position: relative;
     top: 1px;
 }
-button:disabled {
+.button:disabled {
     background-color: var(--disabled-background-color) !important;
 }
 </style>

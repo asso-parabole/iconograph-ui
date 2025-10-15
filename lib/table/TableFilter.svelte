@@ -138,11 +138,12 @@
     box-sizing: border-box;
     border: 1px solid var(--main-border-color);
     border-radius: 8px;
-    min-width: 120px;
+    min-width: 150px;
     padding: 4px 0px;
     box-shadow: #00000012 0 0px 8px;
 }
 .select-filter > div {
+    display: block ruby;
     padding: 6px 16px;
     font-size: 13px;
 }

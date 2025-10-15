@@ -12,6 +12,8 @@
     import Editor from "$lib/iconograph-ui/inputs/Editor.svelte";
     import SegmentedSwitchInput from "$lib/iconograph-ui/form/SegmentedSwitchInput.svelte"
     import Link from "$lib/iconograph-ui/display/Link.svelte";
+    import SelectUserInput from "$lib/iconograph-ui/user/SelectUserInput.svelte";
+    import MultiSelect from "$lib/iconograph-ui/form/MultiSelect.svelte";
 
     let options = [{ key: "Value" }]
     let inputs = [
@@ -21,6 +23,7 @@
         { component: Input, props: { type: "email", name: "email", label: "Email"}, value: "test@example.com" },
         { component: SexeChoiceInput, props: { name: "sexe", label: "Sexe" } },
         { component: CustomInput, props: { name: "color", label: "Couleur" } },
+        { component: MultiSelect, props: { name: "multiselect", label: "Fruits", options: { APPLE: 'Pomme', BANANA: 'Banane' } }, }
     ];
 
     let button = {
@@ -33,6 +36,15 @@
     function onEditorChange(event) {
       console.log("HTML:", event.detail.html);
     }
+
+    let message = `
+        <p>Voici un tableau pré-rempli :</p>
+        <table border="1">
+            <tr><td>A1</td><td>B1</td></tr>
+            <tr><td>A2</td><td>B2</td></tr>
+        </table>
+        <p></p>
+    `;
 </script>
 
 <HeadSection>
@@ -65,7 +77,13 @@
     </Card>
 
     <Card padding={'0px'}>
-        <Editor on:change={onEditorChange}></Editor>
+        <Editor bind:content={message} ></Editor>
+    </Card>
+
+    <Card>
+
+        <SelectUserInput multiple={true}></SelectUserInput>
+
     </Card>
 </BodySection>
 

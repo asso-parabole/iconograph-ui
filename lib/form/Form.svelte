@@ -5,6 +5,7 @@
     export let inputs = [];
     export let button;
     export let uri;
+    export let callbackFunction = () => {};
 
     let waiting = false;
 
@@ -56,6 +57,7 @@
         }
         else {
             addNotification({'status': 'success', 'message': data.message})
+            callbackFunction.apply(null, data);
         }
 
     }

@@ -7,7 +7,7 @@
     export let value = null;
     export let multiple = false;
 
-    if (multiple)
+    if (multiple && !value)
         value = [];
 
     function handleRemove(id) {

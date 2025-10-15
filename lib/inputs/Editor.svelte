@@ -1,29 +1,30 @@
 <script>
-    import { onMount, createEventDispatcher } from "svelte";
-
+    import { onMount } from "svelte";
     import "quill/dist/quill.snow.css";
-
-    const dispatch = createEventDispatcher();
+    import "quill-better-table/dist/quill-better-table.css";
 
     export let content = "";
     export let theme = "snow";
+    export let width = "100%";
+    export let height = "200px";
 
     let editorEl;
     let editor;
+    let isInternalChange = false; // pour éviter les boucles du changement dynamique de content
 
     const tooltips = {
-        bold: "Bold",
-        italic: "Italic",
-        underline: "Underline",
-        strike: "Strikethrough",
-        link: "Insert Link",
-        image: "Insert Image",
-        blockquote: "Blockquote",
-        clean: "Remove Formatting",
+        bold: "Gras",
+        italic: "Italique",
+        underline: "Souligné",
+        strike: "Barré",
+        link: "Lien",
+        image: "Image",
+        blockquote: "Citation",
+        clean: "Effacer le formatage",
     };
 
     function addTooltips() {
-        const toolbar = document.querySelector(".ql-toolbar");
+        const toolbar = editorEl?.parentElement?.querySelector(".ql-toolbar");
         if (!toolbar) return;
 
         toolbar.querySelectorAll("button, select").forEach((btn) => {
@@ -40,13 +41,15 @@
 
     onMount(async () => {
         const Quill = (await import("quill")).default;
+        const QuillBetterTable = (await import("quill-better-table")).default;
+
+        Quill.register({ "modules/better-table": QuillBetterTable }, true);
 
         editor = new Quill(editorEl, {
             theme,
             modules: {
                 toolbar: [
-                    //[{ size: [] }],
-                    [{ 'header': [1, 2, 3, 4, false] }],
+                    [{ header: [1, 2, 3, 4, false] }],
                     ["bold", "italic", "underline", "strike"],
                     [{ color: [] }, { background: [] }],
                     ["blockquote"],
@@ -54,29 +57,51 @@
                     [{ align: [] }],
                     ["link"],
                     ["clean"],
-                    // [{ script: "sub" }, { script: "super" }],
-                    // [{ list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
-                    // ["link", "image", "video", "formula"],
+                    // ["table"],
                 ],
+                table: false, // désactive le module table de base
+                "better-table": {
+                    operationMenu: {
+                        items: {
+                            unmergeCells: { text: "Unmerge cells" },
+                        },
+                    },
+                },
             },
-            placeholder: 'Redigez votre message',
+            placeholder: "Rédigez votre message...",
         });
 
         if (content)
             editor.clipboard.dangerouslyPasteHTML(content);
 
         editor.on("text-change", () => {
-            const html = editor.root.innerHTML;
-            const delta = editor.getContents();
-            dispatch("change", { html, delta });
+            isInternalChange = true;
+            content = editor.root.innerHTML;
+            isInternalChange = false;
         });
 
         addTooltips();
     });
+
+    $: if (editor && !isInternalChange) {
+        const currentHTML = editor.root.innerHTML;
+        if (content && content !== currentHTML) {
+            editor.clipboard.dangerouslyPasteHTML(content);
+        }
+    }
 </script>
 
-<div bind:this={editorEl} style="width: 100%; height: 200px;"></div>
+<div
+    bind:this={editorEl}
+    style="width: {width}; height: {height};"
+></div>
 
 <style>
-    /* TODO */
+    /*.ql-toolbar {
+        border-radius: 0.5rem 0.5rem 0 0;
+    }
+    .ql-container {
+        border-radius: 0 0 0.5rem 0.5rem;
+        min-height: 100px;
+    }*/
 </style>

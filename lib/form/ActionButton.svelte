@@ -6,9 +6,11 @@
     import detailsIcon from '../assets/icons/icon-details.svg?url';
 
     export let options = [];
+    export let style = "classic";
 
     let open = false;
     let dropdownEl;
+    let y = 0;
     let coords = { top: 0, left: 0, width: 0 };
 
     function openDropdown() {
@@ -19,16 +21,22 @@
 
 </script>
 
+<svelte:window bind:scrollY={y} />
+
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div class="dropdown {open ? 'open' : ''}" bind:this={dropdownEl} use:clickOutside on:click_outside={() => {open = false}}
     on:click|preventDefault|stopPropagation={openDropdown}>
-    <div style:background-image={`url("${detailsIcon}")`}>Actions</div>
+    {#if style == "icon"}
+        <div style:background-image={`url("${detailsIcon}")`} class="icon"></div>
+    {:else}
+        <div style:background-image={`url("${detailsIcon}")`}>Actions</div>
+    {/if}
 
     <!-- Liste déroulante -->
     {#if open}
     <Portal target="body" >
-        <div class="list" style="position: absolute; top:{coords.top + 2}px; left:{coords.left + coords.width - 200}px; width: {coords.width}px;" >
+        <div class="list" style="position: absolute; top:{coords.top + 2 + y}px; left:{coords.left + coords.width - 200}px; width: {coords.width}px;" >
         <!-- Options -->
         {#each options as opt}
             <div class="option" on:click={opt.action}>
@@ -73,6 +81,13 @@
 }
 .dropdown > div:first-of-type:hover {
     background-color: #ddd;
+}
+.dropdown > div:first-of-type.icon {
+    min-width: 1px;
+    background-size: 16px auto;
+    background-repeat: no-repeat;
+    background-position: center center;
+    padding-left: 24px;
 }
 .list {
     position: absolute;
