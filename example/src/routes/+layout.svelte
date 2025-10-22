@@ -26,7 +26,7 @@
 
 </script>
 
-<MainMenu menu={menu} isOpen={isMenuOpen} ></MainMenu>
+<MainMenu menu={menu} bind:isOpen={isMenuOpen} ></MainMenu>
 
 <div id="main-container" class="{isMenuOpen ? 'menu-open' : ''}" >
     <div style="display: contents">
@@ -49,52 +49,18 @@
     transition: 0.3s all ease-in-out;
     padding-bottom: 48px;
 }
+/* TODO: Integrate as a component
 #main-container.menu-open {
-    width: calc(100% - 300px);
-    left: 300px;
+    width: calc(100% - 285px);
+    left: 285px;
 }
-
-
-#main-container section > article {
-    width: calc(100% - 48px);
-    max-width: min(calc(100% - 24px), 1100px) !important;
-    margin-bottom: 30px;
-    padding: 24px 24px;
-    background-color: #ffffff;
-    box-sizing: border-box;
-    border: 1px solid #e4e4e4;
-    border-radius: 8px;
-}
-
-@media (max-width: 1040px) {
-    #main-container.menu-open > section {
-        width: 100%;
-        min-width: 300px;
-    }
-    nav {
-        z-index: 50;
-    }
-    #main-container.menu-open section > article {
-        width: calc(100% - 88px);
-    }
-}
+*/
 
 @media (max-width: 780px) {
     #main-container {
         left: 0px;
+        width: 100%;
         margin-top: 0px;
-    }
-    #main-container.menu-open {
-        width: 100vw;
-        left: 0px;
-    }
-    article {
-        width: calc(100% - 88px);
-        margin-bottom: 30px;
-        padding: 24px 24px;
-    }
-    #main-container section > article {
-        width: calc(100% - 88px);
     }
 }
 </style>
