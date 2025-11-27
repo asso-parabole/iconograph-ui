@@ -15,13 +15,13 @@
     </button>
 {:else}
     {#if clickEvent}
-    <button on:click|stopPropagation={clickEvent} class="{style}">
-        {label}
-    </button>
+        <button on:click|stopPropagation={clickEvent} class="{style} {icon ? 'icon' : ''}" style:background-image={`url("${icon}")`}>
+            {label}
+        </button>
     {:else}
-    <a href={url} class="{style}">
-        {label}
-    </a>
+        <a href={url} class="{style} {icon ? 'icon' : ''}" style:background-image={`url("${icon}")`}>
+            {label}
+        </a>
     {/if}
 {/if}
 
@@ -76,5 +76,23 @@ a:disabled {
 .outline:hover {
     background-color: var(--theme-main-color);
     color: #ffffff !important;
+}
+.icon {
+    background-repeat: no-repeat;
+    background-position: 12px center;
+    background-size: 18px;
+    padding-left: 36px;
+}
+.disabled {
+    background-color: #eee;
+    color: #888 !important;
+    border: 1px solid #eee;
+    cursor: not-allowed;
+}
+.disabled:hover {
+    background-color: #eee;
+    color: #888 !important;
+    border: 1px solid #eee;
+    cursor: not-allowed;
 }
 </style>

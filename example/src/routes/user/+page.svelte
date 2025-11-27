@@ -14,6 +14,9 @@
     import SexeChoiceInput from "$lib/iconograph-ui/form/SexeChoiceInput.svelte";
     import CustomInput from "$lib/components/CustomInput.svelte";
 
+    import loaderIcon from '$lib/iconograph-ui/assets/icons/icon-add-w.svg?url';
+    import iconV from '$lib/assets/icon-calendar-v.png?url';
+
     let inputs = [
         { component: Input, props: { type: "text", name: "title", label: "Titre" } },
         { component: Input, props: { type: "select", name: "title", label: "Titre", options: ['Maison', 'Voiture']} },
@@ -63,9 +66,9 @@
                 </div>
                 <div style="margin-right: 60px; display: flex; gap: 8px;">
                     <ActionButton options={[{label: "Supprimer les derniers", action: () => {alert();}}]}></ActionButton>
-                    <Button label={'Enregistrer'}></Button>
+                    <Button label={'Enregistrer'} icon={loaderIcon} style={"disabled"}></Button>
                     <ActionButton style={"icon"} options={[{label: "Supprimer les derniers", action: () => {alert();}}]}></ActionButton>
-                    <Button label={'Enregistrer'} style={"outline"}></Button>
+                    <Button label={'Enregistrer'} style={"outline"} icon={iconV}></Button>
                 </div>
             </div>
         </div>
