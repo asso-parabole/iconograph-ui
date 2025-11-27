@@ -6,6 +6,8 @@
     export let name;
     export let value = null;
     export let multiple = false;
+    export let parentId = null;
+    export let userType = "*";
 
     if (multiple && !value)
         value = [];
@@ -31,7 +33,7 @@
             <div>
                 <div class="user-label">
                     <UserPicture size={24} user={v}></UserPicture>
-                    <a href={`/user/${v.id}`}>
+                    <a href={`/user/${v.id}`} data-sveltekit-preload-data="off">
                         <span>{v.firstname} {v.lastname}</span>
                     </a>
                     <!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -41,17 +43,17 @@
             </div>
         {/each}
         <div>
-            <UserSelect uri={'/user'} on:selectUser={handleSelect}></UserSelect>
+            <UserSelect uri={'/user'} on:selectUser={handleSelect} parentId={parentId} {userType}></UserSelect>
         </div>
     </div>
 {:else}
     <div id="single-select-wrapper" name={name} >
         {#if !value}
-            <UserSelect uri={'/user'} bind:selected={value} ></UserSelect>
+            <UserSelect uri={'/user'} bind:selected={value} parentId={parentId} {userType}></UserSelect>
         {:else}
             <div class="user-label">
                 <UserPicture size={24} user={value}></UserPicture>
-                <a href={`/user/${value.id}`}>
+                <a href={`/user/${value.id}`} data-sveltekit-preload-data="off">
                     <span>{value.firstname} {value.lastname}</span>
                 </a>
                 <!-- svelte-ignore a11y_click_events_have_key_events -->

@@ -54,6 +54,10 @@
     }
     */
 
+    export function refreshData() {
+        getData();
+    }
+
     async function getData() {
         waiting = true;
         data = [];

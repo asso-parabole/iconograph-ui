@@ -10,6 +10,8 @@
 
     export let uri = '/user';
     export let selected;
+    export let parentId = null;
+    export let userType = "*";
 
     let users = [];
     let waiting = false;
@@ -20,10 +22,14 @@
     let dropdownEl;
     let coords = { top: 0, left: 0, width: 0 };
 
+    uri = `${uri}?limit=50&page=1&userType=${userType}`
+    if (parentId)
+        uri = `${uri}&parentId=${parentId}`
+
     async function handleFilter() {
         waiting = true;
 
-        const response = await fetch(`${uri}?contains=${search}&limit=15&page=1`,  {
+        const response = await fetch(`${uri}&contains=${search}`,  {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         });

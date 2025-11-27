@@ -6,11 +6,10 @@
     export let button = {};
     export let uri;
     export let callbackFunction = () => {};
+    export let waiting = false;
 
     const defaultButton = { label: "Enregistrer", clickEvent: handleSubmit };
     $: button = { ...defaultButton, ...button };
-
-    let waiting = false;
 
     function setDeep(obj, path, value) {
         let keys = path
@@ -68,7 +67,7 @@
 <form>
     <slot></slot>
 
-    <FormButton button={button} clickEvent={button.clickEvent} ></FormButton>
+    <FormButton button={button} clickEvent={button.clickEvent} waiting={waiting}></FormButton>
 
 </form>
 
