@@ -10,15 +10,19 @@
 
     let open = false;
     let dropdownEl;
+    let y = 0;
     let coords = { top: 0, right: 0, width: 0 };
 
     function openDropdown() {
         const rect = dropdownEl.getBoundingClientRect();
-        coords = { top: rect.bottom, left: rect.left, right: window.innerWidth - rect.right, width: rect.width };
+        const scrollAtOpen = y;
+        coords = { top: rect.bottom + scrollAtOpen, left: rect.left, right: window.innerWidth - rect.right, width: rect.width };
         open = !open;
     }
 
 </script>
+
+<svelte:window bind:scrollY={y} />
 
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
