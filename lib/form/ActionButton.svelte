@@ -10,7 +10,6 @@
 
     let open = false;
     let dropdownEl;
-    let y = 0;
     let coords = { top: 0, right: 0, width: 0 };
 
     function openDropdown() {
@@ -20,8 +19,6 @@
     }
 
 </script>
-
-<svelte:window bind:scrollY={y} />
 
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->

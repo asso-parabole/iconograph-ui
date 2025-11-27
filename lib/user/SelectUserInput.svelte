@@ -1,13 +1,17 @@
 <script>
     // @ts-nocheck
-	import UserSelect from "./UserSelect.svelte";
 	import UserPicture from './UserPicture.svelte';
+    import SearchSelect from "../inputs/SearchSelect.svelte";
 
     export let name;
     export let value = null;
     export let multiple = false;
     export let parentId = null;
     export let userType = "*";
+
+    let uri = `/user?userType=${userType}`
+    if (parentId)
+        uri = `${uri}&parentId=${parentId}`
 
     if (multiple && !value)
         value = [];
@@ -20,7 +24,7 @@
     }
 
     function handleSelect(e) {
-        value.push(e.detail.user);
+        value.push(e.detail.el);
         value = value;
         console.log(value);
     }
@@ -43,13 +47,13 @@
             </div>
         {/each}
         <div>
-            <UserSelect uri={'/user'} on:selectUser={handleSelect} parentId={parentId} {userType}></UserSelect>
+            <SearchSelect uri={`${uri}&`} on:selectResult={handleSelect} type={'user'}></SearchSelect>
         </div>
     </div>
 {:else}
     <div id="single-select-wrapper" name={name} >
         {#if !value}
-            <UserSelect uri={'/user'} bind:selected={value} parentId={parentId} {userType}></UserSelect>
+            <SearchSelect uri={`${uri}&`} bind:selected={value} type={'user'}></SearchSelect>
         {:else}
             <div class="user-label">
                 <UserPicture size={24} user={value}></UserPicture>
@@ -118,7 +122,7 @@
     border-radius: 20px;
     font-weight: 600;
     text-align: center;
-    line-height: 16px;
+    line-height: 17px;
     color: #777;
     transform: rotate(45deg);
     transition: all ease-in-out 0.14s;

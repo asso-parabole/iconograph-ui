@@ -6,6 +6,7 @@
     import NavBar from "$lib/iconograph-ui/navigation/NavBar.svelte";
     import SelectUserInput from "$lib/iconograph-ui/user/SelectUserInput.svelte";
     import UserSelect from "$lib/iconograph-ui/user/UserSelect.svelte";
+    import SearchSelect from "$lib/iconograph-ui/inputs/SearchSelect.svelte";
 
     import Form from "$lib/iconograph-ui/form/Form.svelte";
     import ActionButton from "$lib/iconograph-ui/form/ActionButton.svelte";
@@ -81,6 +82,12 @@
 </HeadSection>
 
 <BodySection>
+
+    <Card>
+
+        <SearchSelect uri={'/user?userType=*&'} type={'user'}></SearchSelect>
+
+    </Card>
 
     <Card>
 

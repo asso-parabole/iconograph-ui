@@ -1,6 +1,6 @@
 {
     "name": "iconograph-ui",
-    "version": "1.7.1",
+    "version": "1.7.3",
     "description": "A Svelte Kit components library",
     "main": "./index.js",
     "svelte": "./index.js",

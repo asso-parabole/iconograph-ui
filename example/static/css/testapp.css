@@ -21,7 +21,7 @@
     --theme-input-outline-offset: 2px;
     --theme-input-border-failure: 2px solid #f95959;
     --theme-input-height: 40px;
-    --theme-input-text-color: #111;
+    --theme-input-text-color: #222;
 
     /** Icons */
     --logo-minimized: url('/favicon.svg');
