@@ -11,6 +11,7 @@
     import ActionButton from "$lib/iconograph-ui/form/ActionButton.svelte";
     import Button from "$lib/iconograph-ui/navigation/Button.svelte";
     import Input from "$lib/iconograph-ui/form/Input.svelte";
+    import PasswordInput from "$lib/iconograph-ui/inputs/PasswordInput.svelte";
     import SexeChoiceInput from "$lib/iconograph-ui/form/SexeChoiceInput.svelte";
     import CustomInput from "$lib/components/CustomInput.svelte";
 
@@ -21,6 +22,7 @@
         { component: Input, props: { type: "text", name: "title", label: "Titre" } },
         { component: Input, props: { type: "select", name: "title", label: "Titre", options: ['Maison', 'Voiture']} },
         { component: Input, props: { type: "email", name: "email", label: "Email"}, value: "test@example.com" },
+        { component: PasswordInput, props: { type: "password", name: "password", label: "Password"}, value: "azerty" },
         { component: SexeChoiceInput, props: { name: "sexe", label: "Sexe" } },
         { component: CustomInput, props: { name: "color", label: "Couleur" } },
     ];
@@ -64,11 +66,11 @@
                     </div>
                     <span class="margin-l-s" style="text-transform: uppercase; color: #888; font-weight: 600;"></span>
                 </div>
-                <div style="margin-right: 60px; display: flex; gap: 8px;">
+                <div style="margin-right: 0px; display: flex; gap: 8px;">
                     <ActionButton options={[{label: "Supprimer les derniers", action: () => {alert();}}]}></ActionButton>
-                    <Button label={'Enregistrer'} icon={loaderIcon} style={"disabled"}></Button>
-                    <ActionButton style={"icon"} options={[{label: "Supprimer les derniers", action: () => {alert();}}]}></ActionButton>
+                    <Button label={'Enregistrer'} icon={loaderIcon}></Button>
                     <Button label={'Enregistrer'} style={"outline"} icon={iconV}></Button>
+                    <ActionButton style={"icon"} options={[{label: "Supprimer les derniers", action: () => {alert();}}]}></ActionButton>
                 </div>
             </div>
         </div>
