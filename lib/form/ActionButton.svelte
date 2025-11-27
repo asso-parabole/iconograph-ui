@@ -25,7 +25,8 @@
 
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<div class="dropdown {open ? 'open' : ''}" bind:this={dropdownEl} use:clickOutside on:click_outside={() => {open = false}}
+<div class="dropdown {open ? 'open' : ''} {style == "icon" ? 'icon' : ''}"
+    bind:this={dropdownEl} use:clickOutside on:click_outside={() => {open = false}}
     on:click|preventDefault|stopPropagation={openDropdown}>
     {#if style == "icon"}
         <div style:background-image={`url("${detailsIcon}")`} class="icon"></div>
@@ -35,7 +36,7 @@
 
     <!-- Liste déroulante -->
     {#if open}
-    <Portal target="body" >
+    <Portal target="#main-container" >
         <div class="list" style="position: absolute; top:{coords.top + 2 + y}px; left:{coords.left + coords.width - 200}px; width: {coords.width}px;" >
         <!-- Options -->
         {#each options as opt}
@@ -53,8 +54,11 @@
 .dropdown {
     position: relative;
     display: flex;
-    height: var(--theme-input-height, 40px);
+    height: 32px;
     flex: 1;
+}
+.dropdown.icon {
+    height: 32px;
 }
 .dropdown.open {
     border-bottom-left-radius: 0px;
@@ -62,32 +66,36 @@
 }
 .dropdown > div:first-of-type {
     background-color: #ebebed;
-    height: 40px;
+    height: 32px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    padding: 0px 16px;
+    padding: 0px 8px;
     font-size: 14px;
-    line-height: 40px;
+    line-height: 32px;
     font-weight: 600;
     font-family: var(--theme-text-font);
     color: #333;
     flex: 1;
     min-width: 76px;
-    background-size: 16px auto;
+    background-size: 14px auto;
     background-repeat: no-repeat;
     background-position: center right 16px;
     padding-left: 24px;
+    transition: all ease-in-out 0.17s;
 }
 .dropdown > div:first-of-type:hover {
     background-color: #ddd;
 }
 .dropdown > div:first-of-type.icon {
     min-width: 1px;
-    background-size: 16px auto;
+    width: 32px;
+    max-width: 32px;
+    background-size: 14px auto;
     background-repeat: no-repeat;
     background-position: center center;
-    padding-left: 24px;
+    padding: 0px;
+    height: 32px;
 }
 .list {
     position: absolute;

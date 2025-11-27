@@ -1,17 +1,28 @@
 <script>
+    import loaderIcon from '../assets/icons/loader-ring-grey.svg?url';
+
     export let label;
     export let url;
     export let clickEvent;
+    export let waiting = false;
+    export let style = null;
+    export let icon = null;
 </script>
 
-{#if clickEvent}
-<button on:click|stopPropagation={clickEvent}>
-    {label}
-</button>
+{#if waiting}
+    <button class="waiting" style:background-image={`url("${loaderIcon}")`}>
+        {label}
+    </button>
 {:else}
-<a href={url} >
-    {label}
-</a>
+    {#if clickEvent}
+    <button on:click|stopPropagation={clickEvent} class="{style}">
+        {label}
+    </button>
+    {:else}
+    <a href={url} class="{style}">
+        {label}
+    </a>
+    {/if}
 {/if}
 
 <style>
@@ -21,21 +32,34 @@ a, button {
     background-color: var(--theme-main-color);
     color: #ffffff !important;
     /*box-shadow: #000000a0 0px 1px 3px 0px !important;*/
+    border: 1px solid var(--theme-main-color);
     border-radius: 8px;
-    height: 34px;
-    line-height: 34px !important;
+    height: 30px;
+    line-height: 30px !important;
     font-size: 13px;
     text-decoration: none;
     text-align: center;
     font-family: var(--theme-main-font);
     font-weight: 700;
     text-transform: uppercase;
-    border: none;
     cursor: pointer;
     padding: 0px 20px;
+    transition: all ease-in-out 0.17s;
+}
+.waiting {
+    background-repeat: no-repeat;
+    background-position: 12px center;
+    background-size: 20px;
+    padding-left: 40px;
+    background-color: #eee;
+    color: #888 !important;
+    cursor: not-allowed;
 }
 a:hover, button:hover {
     background-color: var(--theme-main-color-hover);
+}
+.waiting:hover {
+    background-color: #ddd
 }
 a:active {
     background-color: var(--theme-main-color-hover);
@@ -44,5 +68,13 @@ a:active {
 }
 a:disabled {
     background-color: var(--disabled-background-color) !important;
+}
+.outline {
+    background-color: transparent;
+    color: var(--theme-main-color) !important;
+}
+.outline:hover {
+    background-color: var(--theme-main-color);
+    color: #ffffff !important;
 }
 </style>

@@ -25,6 +25,7 @@
 
     /** Icons */
     --logo-minimized: url('/favicon.svg');
+    --logo-large: url('/logo.svg');
 
     /** Fonts */
     --theme-main-font: 'Montserrat';

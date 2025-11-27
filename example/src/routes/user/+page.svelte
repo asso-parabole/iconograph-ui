@@ -9,6 +9,7 @@
 
     import Form from "$lib/iconograph-ui/form/Form.svelte";
     import ActionButton from "$lib/iconograph-ui/form/ActionButton.svelte";
+    import Button from "$lib/iconograph-ui/navigation/Button.svelte";
     import Input from "$lib/iconograph-ui/form/Input.svelte";
     import SexeChoiceInput from "$lib/iconograph-ui/form/SexeChoiceInput.svelte";
     import CustomInput from "$lib/components/CustomInput.svelte";
@@ -62,7 +63,9 @@
                 </div>
                 <div style="margin-right: 60px; display: flex; gap: 8px;">
                     <ActionButton options={[{label: "Supprimer les derniers", action: () => {alert();}}]}></ActionButton>
+                    <Button label={'Enregistrer'}></Button>
                     <ActionButton style={"icon"} options={[{label: "Supprimer les derniers", action: () => {alert();}}]}></ActionButton>
+                    <Button label={'Enregistrer'} style={"outline"}></Button>
                 </div>
             </div>
         </div>

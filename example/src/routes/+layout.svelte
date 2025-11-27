@@ -1,26 +1,18 @@
 <script>
 // @ts-nocheck
-    import { page } from '$app/stores';
-    import { afterUpdate } from 'svelte';
 
     import NotificationWrapper from '$lib/iconograph-ui/notification/NotificationWrapper.svelte';
     import MainMenu from "$lib/iconograph-ui/navigation/MainMenu.svelte";
-
-    let current_url = $page.url.pathname.split('/');
-
-    afterUpdate(() => {
-        current_url = $page.url.pathname.split('/');
-    });
 
     let isMenuOpen = false;
 
     let menu = {
         logo: "",
         main: [
-            { name: 'Home', uri: '', icon: '/icons/icon-calendar-g.png', iconHover: '/icons/icon-calendar-v.png', selected: current_url[1] == ''},
-            { name: 'Home', uri: '', icon: '/icons/icon-calendar-g.png', iconHover: '/icons/icon-calendar-v.png', selected: current_url[1] == '1' },
-            { name: 'Home', uri: '', icon: '/icons/icon-calendar-g.png', iconHover: '/icons/icon-calendar-v.png', selected: current_url[1] == '1' },
-            { name: 'Home', uri: '', icon: '/icons/icon-calendar-g.png', iconHover: '/icons/icon-calendar-v.png', selected: current_url[1] == '1' },
+            { name: 'Home', uri: '/', icon: '/icons/icon-calendar-g.png', iconHover: '/icons/icon-calendar-v.png'},
+            { name: 'User', uri: '/user', icon: '/icons/icon-calendar-g.png', iconHover: '/icons/icon-calendar-v.png'},
+            { name: 'Home', uri: '/', icon: '/icons/icon-calendar-g.png', iconHover: '/icons/icon-calendar-v.png'},
+            { name: 'Home', uri: '/', icon: '/icons/icon-calendar-g.png', iconHover: '/icons/icon-calendar-v.png'},
         ],
     };
 
