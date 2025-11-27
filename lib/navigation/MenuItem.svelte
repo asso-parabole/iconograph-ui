@@ -1,19 +1,23 @@
 <script>
     export let item;
     export let isOpen = false;
+    export let selected = false;
+
     let isHover = false;
 </script>
 
 <li>
-    <a aria-label="{item.name} tab menu" href="{item.uri}" class="menu-item {item.selected ? 'selected' : ''}"
+    {#key selected}
+    <a aria-label="{item.name} tab menu" href="{item.uri}" class="menu-item {selected ? 'selected' : ''}"
         on:mouseenter={() => isHover = true} on:mouseleave={() => isHover = false} data-sveltekit-preload-data="off">
         <div class="{isOpen ? 'menu-open' : ''}">
             <div><!-- Lateral Color Border --></div>
-            <div style="background-image: url({item.selected || isHover ? item.iconHover: item.icon})">
+            <div style="background-image: url({selected || isHover ? item.iconHover: item.icon})">
                 {item.name}
             </div>
         </div>
     </a>
+    {/key}
 </li>
 
 <style>
@@ -30,7 +34,11 @@
         padding: 0px;
         transition: all ease-in-out 0.17s;
     }
-    .menu-item:hover, .menu-item.selected {
+    .menu-item:hover {
+        color: #efefef;
+        border-left-color: var(--theme-main-color);
+    }
+    .menu-item.selected {
         color: #efefef;
         border-left-color: var(--theme-main-color);
     }
@@ -59,7 +67,7 @@
         transition: all linear 0.17s;
         line-height: 48px;
         padding-left: 48px;
-        overflow-x: hidden;
+        overflow: hidden;
         font-weight: 600;
         color: var(--theme-text-darkgrey);
         font-family: var(--theme-title-font);

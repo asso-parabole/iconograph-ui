@@ -1,10 +1,19 @@
 <script>
     // @ts-nocheck
+    import { page } from '$app/stores';
+    import { afterUpdate } from 'svelte';
 
     import MenuItem from './MenuItem.svelte';
 
     export let isOpen = false;
     export let menu;
+
+    let current_url = $page.url.pathname.split('/');
+
+    afterUpdate(() => {
+        current_url = $page.url.pathname.split('/');
+        current_url = '/' + current_url[1];
+    });
 
 </script>
 
@@ -24,7 +33,8 @@
     <div class="main">
         <ul>
             {#each menu.main as item}
-                <MenuItem item={item} isOpen={isOpen}></MenuItem>
+                <link rel="preload" as="image" href={item.iconHover}>
+                <MenuItem item={item} isOpen={isOpen} selected={current_url == item.uri}></MenuItem>
             {/each}
         </ul>
     </div>
@@ -130,12 +140,18 @@
         width: 48px;
         height: 40px;
         min-height: 40px;
-        background-image: var(--logo-minimized);
-        background-size: contain;
+        background-image: var(--logo-large);
+        background-size: auto 32px;
         background-repeat: no-repeat;
-        background-position: center center;
+        background-position: 0px center;
         margin-bottom: 32px;
         margin-left: 17px;
+        transition: all ease-in-out 0.4s;
+    }
+    nav.menu-open > .logo {
+        width: 248px;
+        background-size: auto 32px;
+        background-position: 0px center;
     }
 
     nav > .main {
