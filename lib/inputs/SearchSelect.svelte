@@ -5,6 +5,7 @@
     import UserPicture from '../user/UserPicture.svelte';
     import {clickOutside} from '../utils/clickOutside.js';
     import { createEventDispatcher } from 'svelte'
+    import loaderIcon from '../assets/icons/loader-ring-grey.svg?url';
 
     const dispatch = createEventDispatcher()
 
@@ -23,9 +24,11 @@
     let coords = { top: 0, left: 0, width: 0 };
 
     async function handleFilter() {
-        waiting = true;
+        if (search.length < 1)
+            return;
 
-        const response = await fetch(`${uri}limit=50&page=1&contains=${search}`,  {
+        waiting = true;
+        const response = await fetch(`${uri}limit=50&page=1&name=${search}`,  {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         });
@@ -66,18 +69,24 @@
     <Portal target="#main-container">
         <div class="list" style="position: absolute; top:{coords.top - 1}px; left:{coords.left - 85}px; width: {coords.width - 2}px;" >
             <!-- Options -->
-            {#each results as r}
-                <div class="option" on:click={() => selectResult(r)}>
-                    {#if type == 'user'}
-                        <UserPicture user={r} size={24}></UserPicture>
-                        <span>{r.firstname} {r.lastname}</span>
-                    {:else}
-                        <span>{r.name}</span>
-                    {/if}
+            {#if waiting}
+                <div class="option waiting">
+                    <span style:background-image={`url("${loaderIcon}")`}>Recherche en cours...</span>
                 </div>
             {:else}
-                <div class="option"><span>Aucun résultat</span></div>
-            {/each}
+                {#each results as r}
+                    <div class="option" on:click={() => selectResult(r)}>
+                        {#if type == 'user'}
+                            <UserPicture user={r} size={24}></UserPicture>
+                            <span>{r.firstname} {r.lastname}</span>
+                        {:else}
+                            <span>{r.name}</span>
+                        {/if}
+                    </div>
+                {:else}
+                    <div class="option"><span>Aucun résultat</span></div>
+                {/each}
+            {/if}
         </div>
     </Portal>
     {/if}
@@ -159,4 +168,20 @@
 .option:hover {
     background: var(--theme-input-bg-highlight);
 }
+.option.waiting {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.option.waiting > span {
+    background-size: 20px auto;
+    background-repeat: no-repeat;
+    background-position: 0px center;
+    padding-left: 28px;
+    color: #999;
+}
+.option.waiting:hover {
+    background-color: transparent;
+}
+
 </style>

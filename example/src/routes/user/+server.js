@@ -2,7 +2,7 @@
 import { json } from '@sveltejs/kit';
 
 export async function GET({ request, cookies, params, url }) {
-    let search = url.searchParams.get('contains')
+    let search = url.searchParams.get('name')
 
     let users = [
         { id: 1, firstname: "Alice", lastname:"Dupont", avatar: "https://i.pravatar.cc/40?u=alice" },

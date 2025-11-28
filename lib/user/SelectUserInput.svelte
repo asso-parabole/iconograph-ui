@@ -2,6 +2,7 @@
     // @ts-nocheck
 	import UserPicture from './UserPicture.svelte';
     import SearchSelect from "../inputs/SearchSelect.svelte";
+    import crossIcon from '../assets/icons/icon-close-cross.svg?url';
 
     export let name;
     export let value = null;
@@ -42,7 +43,7 @@
                     </a>
                     <!-- svelte-ignore a11y_click_events_have_key_events -->
                     <!-- svelte-ignore a11y_no_static_element_interactions -->
-                    <div on:click={() => handleRemove(v.id)}>+</div>
+                    <div on:click={() => handleRemove(v.id)} class="cross" style:background-image={`url("${crossIcon}")`}></div>
                 </div>
             </div>
         {/each}
@@ -62,7 +63,7 @@
                 </a>
                 <!-- svelte-ignore a11y_click_events_have_key_events -->
                 <!-- svelte-ignore a11y_no_static_element_interactions -->
-                <div on:click={handleRemove}>+</div>
+                <div on:click={handleRemove} class="cross" style:background-image={`url("${crossIcon}")`}></div>
             </div>
         {/if}
     </div>
@@ -112,23 +113,21 @@
 .user-label a, .user-label span {
     flex: 1;
 }
-.user-label > div:nth-of-type(2) {
+.cross {
     cursor: pointer;
-    margin-left: 8px;
     height: 16px;
     width: 16px;
-    min-width: 16px;
-    background-color: #ddd;
+    background-color: #e0e0e0;
     border-radius: 20px;
-    font-weight: 600;
-    text-align: center;
-    line-height: 17px;
-    color: #777;
-    transform: rotate(45deg);
-    transition: all ease-in-out 0.14s;
+    background-position: center center;
+    background-size: 16px auto;
+    background-repeat: no-repeat;
+    transition: all ease-in-out 0.10s;
+    position: relative;
+    left: 8px;
 }
-.user-label > div:nth-of-type(2):hover {
-    background-color: #ccc;
+.cross:hover {
+    background-color: #d0d0d0;
 }
 
 </style>

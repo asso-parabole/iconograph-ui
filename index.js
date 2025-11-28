@@ -24,7 +24,8 @@ import Field from "./lib/display/Field.svelte";
 import Link from "./lib/display/Link.svelte";
 import ActionButton from "./lib/form/ActionButton.svelte";
 import MultiSelect from "./lib/form/MultiSelect.svelte";
-import PasswordInput from "./lib/inputs/PasswordInput.svelte"
+import PasswordInput from "./lib/inputs/PasswordInput.svelte";
+import SearchSelect from "./lib/inputs/SearchSelect.svelte"
 
 export {
     Button,
@@ -53,5 +54,6 @@ export {
     ActionButton,
     MultiSelect,
     PasswordInput,
+    SearchSelect,
     addNotification,
 };

@@ -15,7 +15,10 @@
     </button>
 {:else}
     {#if clickEvent}
-        <button on:click|stopPropagation={clickEvent} class="{style} {icon ? 'icon' : ''}" style:background-image={`url("${icon}")`}>
+        <!-- Hide icon if icon == null -->
+        <button on:click|stopPropagation={clickEvent} class="{style} {icon ? 'icon' : ''}"
+            style={ loaderIcon ? { backgroundImage: `url("${loaderIcon}")` } : {} }
+        >
             {label}
         </button>
     {:else}
