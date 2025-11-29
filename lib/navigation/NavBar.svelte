@@ -1,6 +1,20 @@
 <script>
+    import { onMount } from 'svelte';
+
     export let tabs;
     export let currentTab;
+
+    $: if (currentTab) {
+        history.replaceState(null, '', `#${currentTab}`);
+    }
+
+    onMount(() => {
+        const hash = window.location.hash.replace('#', '');
+
+        if (hash && Object.keys(tabs).includes(hash))
+            currentTab = hash;
+    });
+
 </script>
 
 <aside class="horizontal-navbar">
