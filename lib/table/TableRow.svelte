@@ -12,7 +12,13 @@
         {#each columns as c}
             <div style="min-width: {c.width}px; width: {c.width}px;">
                 {#if c.component}
-                    <svelte:component this={c.component} {...c.props} {...{ [c.field]: row[c.field], ...row }} {...{ [c.props.__field_name]: row[c.field], ...row }}/>
+                    <svelte:component
+                        this={c.component}
+                        {...c.props}
+                        {...{ [c.field]: row[c.field], ...row }}
+                        {...{ [c.props.__field_name]: row[c.field], ...row }}
+                        {...(c.rowObjectName ? { [c.rowObjectName]: row } : {})}
+                    />
                 {:else}
                     <span>{ (row[c.field] && row[c.field] != "undefined") ? row[c.field] : ''}</span>
                 {/if}

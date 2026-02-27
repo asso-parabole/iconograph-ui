@@ -2,6 +2,7 @@
     // @ts-nocheck
     export let date;
     export let format;
+    export let style = 1;
 
     function formatDate(date, format, locale = "fr-FR") {
         if (date === null || date === undefined)
@@ -52,4 +53,33 @@
 
 </script>
 
-{formatDate(date, format)}
+{#if style == 2}
+    <div class="indicator-wrapper">
+        <span>{formatDate(date, format)}</span>
+    </div>
+{:else}
+    {formatDate(date, format)}
+{/if}
+
+<style>
+
+.indicator-wrapper {
+    max-width: calc(100% - 16px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    height: 16px;
+    z-index: 12;
+}
+.indicator-wrapper > span{
+    font-weight: 600;
+    text-wrap: nowrap;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #555;
+    font-weight: 600;
+    font-size: 11px;
+}
+</style>

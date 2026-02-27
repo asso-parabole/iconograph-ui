@@ -67,10 +67,20 @@
                     <span class="margin-l-s" style="text-transform: uppercase; color: #888; font-weight: 600;"></span>
                 </div>
                 <div style="margin-right: 0px; display: flex; gap: 8px;">
-                    <ActionButton options={[{label: "Supprimer les derniers", action: () => {alert();}}]}></ActionButton>
+                    <ActionButton options={[{label: "Supprimer les derniers", icon: iconV, action: () => {alert();}}]} outline={true} ></ActionButton>
+                    <ActionButton options={[{label: "Supprimer les derniers", icon: iconV, action: () => {alert();}}]}></ActionButton>
                     <Button label={'Enregistrer'} icon={loaderIcon}></Button>
                     <Button label={'Enregistrer'} style={"outline"} icon={iconV}></Button>
-                    <ActionButton style={"icon"} options={[{label: "Supprimer les derniers", action: () => {alert();}}]}></ActionButton>
+                    <Button label={''} style={"min"} icon={loaderIcon}></Button>
+                    <Button label={''} style={"outline min"} icon={iconV}></Button>
+                    <ActionButton style={"icon"} options={[
+                        {label: "Supprimer les derniers", icon: iconV, action: () => {alert();}},
+                        {label: "Supprimer les derniers", icon: iconV, action: () => {alert();}},
+                        {separator: true},
+                        {label: "Supprimer les derniers", icon: iconV, action: () => {alert();}},
+                        {label: "Supprimer les derniers", icon: iconV, action: () => {alert();}}
+                    ]}></ActionButton>
+                    <ActionButton style={"icon"} options={[{label: "Supprimer les derniers", action: () => {alert();}}]} outline={true}></ActionButton>
                 </div>
             </div>
         </div>

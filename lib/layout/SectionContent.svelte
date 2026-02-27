@@ -14,7 +14,7 @@
 @media (max-width: 780px) {
     .content {
         width: 100%;
-        max-width: calc(100vw - 32px);
+        max-width: calc(100vw - 16px);
     }
 }
 </style>

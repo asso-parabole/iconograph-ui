@@ -28,4 +28,11 @@
     justify-content: center;
 }
 
+@media (max-width: 780px) {
+    .head-section {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+}
+
 </style>

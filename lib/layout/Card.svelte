@@ -12,8 +12,9 @@
     width: 100%;
     background-color: var(--main-bg-color);
     box-sizing: border-box;
-    border: 1px solid var(--main-border-color);
+    border: var(--main-border, 1px solid var(--main-border-color));
     border-radius: 8px;
     overflow: hidden;
+    box-shadow: var(--main-shadow);
 }
 </style>

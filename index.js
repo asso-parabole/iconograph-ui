@@ -26,6 +26,7 @@ import ActionButton from "./lib/form/ActionButton.svelte";
 import MultiSelect from "./lib/form/MultiSelect.svelte";
 import PasswordInput from "./lib/inputs/PasswordInput.svelte";
 import SearchSelect from "./lib/inputs/SearchSelect.svelte"
+import Checkbox from "./lib/form/Checkbox.svelte"
 
 export {
     Button,
@@ -33,6 +34,7 @@ export {
     Form,
     FlexForm,
     Input,
+    Checkbox,
     SegmentedSwitchInput,
     SexeChoiceInput,
     BodySection,

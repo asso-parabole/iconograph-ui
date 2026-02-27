@@ -24,7 +24,7 @@
     li {
         list-style: none;
         width: 100%;
-        margin-bottom: 14px;
+        margin-bottom: 2px;
     }
 
     .menu-item {
@@ -68,8 +68,9 @@
         line-height: 48px;
         padding-left: 48px;
         overflow: hidden;
-        font-weight: 600;
-        color: var(--theme-text-darkgrey);
+        font-weight: var(--main-menu-font-weight, 600);
+        font-size: var(--main-menu-font-size);
+        color: var(--main-menu-fg-color, --theme-text-darkgrey);
         font-family: var(--theme-title-font);
     }
     .menu-item > div.menu-open > div:nth-of-type(2) {
@@ -78,13 +79,13 @@
         display: flex;
     }
     .menu-item.selected > div > div:nth-of-type(1) {
-        background-color: var(--theme-main-color);
+        background-color: var(--main-menu-fg-color, --theme-main-color);
     }
     .menu-item.selected > div > div:nth-of-type(2) {
-        color: var(--theme-main-color);
+        color: var(--main-menu-fg-color, --theme-main-color);
     }
     .menu-item:hover > div > div:nth-of-type(2) {
-        background-color: var(--theme-bg-color-light);
-        color: var(--theme-main-color);
+        background-color: var(--main-menu-bg-hover-color, --theme-bg-color-light);
+        color: var(--main-menu-fg-color, --theme-main-color);
     }
 </style>

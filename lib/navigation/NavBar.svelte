@@ -4,10 +4,6 @@
     export let tabs;
     export let currentTab;
 
-    $: if (currentTab) {
-        history.replaceState(null, '', `#${currentTab}`);
-    }
-
     onMount(() => {
         const hash = window.location.hash.replace('#', '');
 
@@ -15,13 +11,18 @@
             currentTab = hash;
     });
 
+    function onChangeTab(key) {
+        currentTab = key;
+        history.replaceState({}, "", `#${key}`);
+    }
+
 </script>
 
 <aside class="horizontal-navbar">
     {#each Object.keys(tabs) as key}
         <!-- svelte-ignore a11y_click_events_have_key_events -->
         <!-- svelte-ignore a11y_no_static_element_interactions -->
-        <div on:click={() => {currentTab = key}} class="{currentTab == key ? 'selected' : ''}">
+        <div on:click={() => {onChangeTab(key)}} class="{currentTab == key ? 'selected' : ''}">
             {tabs[key]}
         </div>
     {/each}

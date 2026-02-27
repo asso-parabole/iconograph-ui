@@ -28,6 +28,7 @@
 {/if}
 
 <style>
+
 #bgk {
     position: fixed;
     z-index: 100;
@@ -87,8 +88,32 @@
     position: absolute;
     top: 12px;
     right: 12px;
+    z-index: 1000;
 }
 .cross:hover {
     background-color: #d0d0d0;
+}
+
+@media (max-width: 780px) {
+    #bgk {
+        top: 0px;
+        left: 0px;
+        width: calc(100vw - 0px);
+        height: 100vh;
+    }
+    #bgk .container {
+        max-width: calc(100% - 0px);
+        max-height: calc(100vh - 0px);
+        height: 100%;
+        border-radius: 0px;
+        padding-top: 24px;
+        padding: 12px;
+    }
+
+    .cross {
+        position: fixed;
+        top: 24px;
+        right: 24px;
+    }
 }
 </style>

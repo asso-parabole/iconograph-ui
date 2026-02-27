@@ -8,12 +8,13 @@
     import Input from "$lib/iconograph-ui/form/Input.svelte";
     import SexeChoiceInput from "$lib/iconograph-ui/form/SexeChoiceInput.svelte";
     import CustomInput from "$lib/components/CustomInput.svelte";
-    import CustomTable from "../lib/components/CustomTable.svelte";
+    import CustomTable from "../../lib/components/CustomTable.svelte";
     import Editor from "$lib/iconograph-ui/inputs/Editor.svelte";
     import SegmentedSwitchInput from "$lib/iconograph-ui/form/SegmentedSwitchInput.svelte"
     import Link from "$lib/iconograph-ui/display/Link.svelte";
     import SelectUserInput from "$lib/iconograph-ui/user/SelectUserInput.svelte";
     import MultiSelect from "$lib/iconograph-ui/form/MultiSelect.svelte";
+    import Checkbox from "$lib/iconograph-ui/form/Checkbox.svelte";
 
     let options = [{ key: "Value" }]
     let inputs = [
@@ -23,7 +24,8 @@
         { component: Input, props: { type: "email", name: "email", label: "Email"}, value: "test@example.com" },
         { component: SexeChoiceInput, props: { name: "sexe", label: "Sexe" } },
         { component: CustomInput, props: { name: "color", label: "Couleur" } },
-        { component: MultiSelect, props: { name: "multiselect", label: "Fruits", options: { APPLE: 'Pomme', BANANA: 'Banane' } }, }
+        { component: MultiSelect, props: { name: "multiselect", label: "Fruits", options: { APPLE: 'Pomme', BANANA: 'Banane' } }, },
+        { component: Checkbox, props: { type: "checkbox", name: "fields[email_auto_sending]", label: "Envoi Automatique de l'email", options: ["Envoi par défaut à 19h le jour de la séance"], stringify: true } },
     ];
 
     let button = {
@@ -45,6 +47,8 @@
         </table>
         <p></p>
     `;
+
+    inputs[7].value = true;
 </script>
 
 <HeadSection>

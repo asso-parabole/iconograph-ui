@@ -7,6 +7,7 @@
 
     export let options = [];
     export let style = "classic";
+    export let outline = false;
 
     let open = false;
     let dropdownEl;
@@ -26,7 +27,7 @@
 
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<div class="dropdown {open ? 'open' : ''} {style == "icon" ? 'icon' : ''}"
+<div class="dropdown {open ? 'open' : ''} {style == "icon" ? 'icon' : ''} {outline ? 'outline' : '' }"
     bind:this={dropdownEl} use:clickOutside on:click_outside={() => {open = false}}
     on:click|preventDefault|stopPropagation={openDropdown}>
     {#if style == "icon"}
@@ -38,12 +39,16 @@
     <!-- Liste déroulante -->
     {#if open}
     <Portal target="#main-container" position={"top: 0px; right: 0px"}>
-        <div class="list" style="position: absolute; top:{coords.top + 4}px; right:{coords.right - 14}px; width: {coords.width}px;" >
+        <div class="list" style="position: absolute; top:{coords.top + 6}px; right:{coords.right - 0}px; width: {coords.width}px;" >
         <!-- Options -->
         {#each options as opt}
-            <div class="option" on:click={opt.action}>
+            {#if opt.separator }
+            <hr />
+            {:else}
+            <div class="option" on:click={opt.action} style:background-image={`url("${opt.icon}")`} >
                 <span>{opt.label}</span>
             </div>
+            {/if}
         {/each}
         </div>
     </Portal>
@@ -67,27 +72,34 @@
 }
 .dropdown > div:first-of-type {
     background-color: var(--theme-input-bg-highlight);
+    box-shadow: var(--button-box-shadow);
     height: 32px;
     border: none;
-    border-radius: 8px;
+    border-radius: 7px;
     cursor: pointer;
     padding: 0px 8px;
     font-size: 14px;
-    line-height: 33px;
-    font-weight: 600;
+    line-height: 32px;
+    font-weight: 500;
     font-family: var(--theme-text-font);
-    color: #333;
+    color: #121212;
     flex: 1;
-    min-width: 76px;
     background-size: 14px auto;
     background-repeat: no-repeat;
-    background-position: center right 14px;
-    padding-left: 20px;
-
+    background-position: center right 12px;
+    padding-left: 18px;
+    padding-right: 32px;
     transition: all ease-in-out 0.17s;
+}
+.dropdown.outline > div:first-of-type {
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid var(--button-border-color);
+    background-color: var(--main-bg-color);
 }
 .dropdown > div:first-of-type:hover {
     background-color: var(--theme-input-bg-hover);
+    box-shadow: var(--button-hover-box-shadow);
 }
 .dropdown > div:first-of-type.icon {
     min-width: 1px;
@@ -99,30 +111,45 @@
     padding: 0px;
     height: 32px;
 }
+.dropdown.outline > div:first-of-type.icon {
+    height: 30px;
+    line-height: 30px;
+    max-width: 30px;
+    border: 1px solid var(--button-border-color);
+    background-color: var(--main-bg-color);
+}
+.dropdown.outline > div:first-of-type:hover {
+    background-color: var(--theme-input-bg-highlight);
+}
 .list {
     position: absolute;
     top: 100%;
     right: 0px;
     background: #ffffff; /*var(--theme-input-bg-highlight, #ebebed);*/
-    border-radius: 8px;
+    border-radius: 7px;
     padding: 8px 0px;
     max-height: 220px;
     overflow-y: auto;
     z-index: 9999;
-    min-width: 200px;
-    border: 1px solid #00000012;
-    box-shadow: #00000012 0 0px 8px;
+    min-width: 260px;
+    border: 1px solid var(--button-border-color);
+    box-shadow: #77777715 0 3px 10px;
 }
 .option {
     display: flex;
     align-items: center;
-    padding: 8px 24px;
+    padding: 8px 12px 8px 36px;
+    margin: 0px 8px;
     gap: 8px;
     cursor: pointer;
+    border-radius: 5px;
+    background-size: 20px auto;
+    background-repeat: no-repeat;
+    background-position: center left 8px;
 }
 .option > span {
     font-size: 14px;
-    line-height: 18px;
+    line-height: 20px;
     font-weight: 400;
     font-family: var(--theme-text-font);
     color: var(--theme-input-text-color);
@@ -131,6 +158,14 @@
     text-overflow: ellipsis;
 }
 .option:hover {
-    background: var(--theme-input-bg-highlight);
+    background-color: var(--theme-input-bg-color);
+}
+hr {
+    color: var(--button-border-color);
+    height: 0;
+    line-height: 0;
+    margin: 7px 12px;
+    border-top: 1px solid var(--button-border-color);
+    border-bottom: 0px solid var(--button-border-color);
 }
 </style>

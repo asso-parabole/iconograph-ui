@@ -34,9 +34,9 @@ a, button {
     display: inline-block;
     background-color: var(--theme-main-color);
     color: #ffffff !important;
-    /*box-shadow: #000000a0 0px 1px 3px 0px !important;*/
+    box-shadow: var(--button-box-shadow);
     border: 1px solid var(--theme-main-color);
-    border-radius: 8px;
+    border-radius: 7px;
     height: 30px;
     line-height: 30px !important;
     font-size: 13px;
@@ -85,6 +85,14 @@ a:disabled {
     background-position: 12px center;
     background-size: 18px;
     padding-left: 36px;
+}
+.min {
+    min-width: 30px;
+    border: 1px solid var(--theme-main-color);
+    padding: 0px 0px;
+    background-position: center center;
+    background-size: 18px;
+    padding-left: 0px;
 }
 .disabled {
     background-color: #eee;
